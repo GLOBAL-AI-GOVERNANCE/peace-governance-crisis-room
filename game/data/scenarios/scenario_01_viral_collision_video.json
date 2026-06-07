@@ -1,0 +1,162 @@
+{
+  "scenario_id": "scenario_01_viral_collision_video",
+  "title": "Scenario 01: The Viral Collision Video",
+  "briefing": "A 34-second video is spreading online claiming a vessel collision near a disputed maritime feature. Public pressure is rising. A policy office wants language within 30 minutes. The evidence is messy, incomplete, and potentially sensitive.",
+  "starting_meters": {
+    "truth_integrity": 70,
+    "escalation_risk": 50,
+    "civilian_safety": 70,
+    "institutional_credibility": 70,
+    "decision_timeliness": 60,
+    "public_pressure": 45
+  },
+  "evidence_cards": [
+    {
+      "id": "video_01",
+      "title": "Viral 34-Second Video",
+      "description": "Low-resolution video. No original metadata. Shows two vessels close together, but angle and timing are unclear.",
+      "tags": [
+        "visual",
+        "metadata_missing",
+        "viral"
+      ],
+      "reliability": "partial",
+      "states": [
+        "Flagged"
+      ]
+    },
+    {
+      "id": "ais_01",
+      "title": "Incomplete AIS Track",
+      "description": "One vessel track is visible. The second vessel has a gap during the alleged impact window.",
+      "tags": [
+        "sensor",
+        "gap",
+        "incomplete"
+      ],
+      "reliability": "partial",
+      "states": [
+        "Partial"
+      ]
+    },
+    {
+      "id": "witness_01",
+      "title": "Fisherfolk Witness Report",
+      "description": "Witness account reports a similar event but gives a different time than the viral post. Identity and location could expose the witness community.",
+      "tags": [
+        "human_report",
+        "civilian_risk",
+        "timestamp_conflict"
+      ],
+      "reliability": "sensitive",
+      "states": [
+        "Sensitive",
+        "Requires Follow-Up"
+      ]
+    },
+    {
+      "id": "translation_01",
+      "title": "Translation Note",
+      "description": "A translated caption uses the word 'attack,' but the original phrase could also mean 'collision' or 'impact.'",
+      "tags": [
+        "translation_uncertainty",
+        "public_claim"
+      ],
+      "reliability": "disputed",
+      "states": [
+        "Requires Follow-Up"
+      ]
+    },
+    {
+      "id": "bot_01",
+      "title": "Amplification Alert",
+      "description": "Multiple newly created accounts are repeating casualty claims without a primary source.",
+      "tags": [
+        "bot_amplification",
+        "casualty_claim_unverified"
+      ],
+      "reliability": "unverified",
+      "states": [
+        "Flagged"
+      ]
+    }
+  ],
+  "correct_confidence_range": [
+    "Possible",
+    "Unverified",
+    "Manipulated / Unclear"
+  ],
+  "unsafe_choices": [
+    "Confirmed"
+  ],
+  "release_options": [
+    {
+      "id": "safe_cautious",
+      "label": "Release cautious language: aware of reports; media not authenticated; review ongoing.",
+      "effects": {
+        "truth_integrity": 10,
+        "escalation_risk": -8,
+        "institutional_credibility": 8,
+        "decision_timeliness": 2
+      }
+    },
+    {
+      "id": "overclaim",
+      "label": "Release strong attribution: intentional hostile act confirmed.",
+      "effects": {
+        "truth_integrity": -30,
+        "escalation_risk": 25,
+        "institutional_credibility": -20,
+        "decision_timeliness": 8
+      }
+    },
+    {
+      "id": "hold_all",
+      "label": "Hold all public comment pending further verification.",
+      "effects": {
+        "truth_integrity": 5,
+        "escalation_risk": -4,
+        "institutional_credibility": -2,
+        "decision_timeliness": -10
+      }
+    },
+    {
+      "id": "corrective",
+      "label": "Issue information-integrity caution: circulating media and casualty claims are unverified.",
+      "effects": {
+        "truth_integrity": 12,
+        "escalation_risk": -10,
+        "institutional_credibility": 6,
+        "decision_timeliness": 0
+      }
+    }
+  ],
+  "minimum_evidence_cards_required_before_scoring": 4,
+  "learning_objectives": [
+    "Review evidence before confidence scoring",
+    "Avoid public attribution when metadata and source integrity are weak",
+    "Protect civilian witnesses and communities before release",
+    "Use controlled language to slow escalation",
+    "Trigger information-integrity review when bot amplification or manipulated media is suspected"
+  ],
+  "version": "0.2.1",
+  "decision_clock_minutes": 30,
+  "time_step_minutes": 5,
+  "facilitator_notes": [
+    "This scenario tests whether players resist viral attribution pressure when media metadata is missing.",
+    "The defensible early confidence range is Possible / Unverified / Manipulated or Unclear.",
+    "Watch whether the player protects the fisherfolk witness before public release.",
+    "v0.2.1: Watch whether players flag viral/bot evidence and mark civilian-risk evidence sensitive before finalizing."
+  ],
+  "debrief_prompts": [
+    "What evidence did the player treat as stronger than it really was?",
+    "Did the player protect civilians before release?",
+    "Did the controlled language match the confidence level?",
+    "Which evidence markings actually changed your final confidence and release posture?"
+  ],
+  "recommended_language_keys": [
+    "unverified",
+    "possible",
+    "manipulated_unclear"
+  ]
+}

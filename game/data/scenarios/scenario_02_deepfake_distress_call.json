@@ -1,0 +1,177 @@
+{
+  "scenario_id": "scenario_02_deepfake_distress_call",
+  "version": "0.2.1",
+  "title": "Scenario 02: The Deepfake Distress Call",
+  "briefing": "An emotional distress audio clip is spreading rapidly, claiming civilians are trapped or harmed near a contested maritime feature. A translated version is going viral faster than the original. Technical review suggests possible synthetic audio or editing. Humanitarian urgency is real, but the media is not yet authenticated.",
+  "decision_clock_minutes": 30,
+  "time_step_minutes": 5,
+  "starting_meters": {
+    "truth_integrity": 68,
+    "escalation_risk": 48,
+    "civilian_safety": 72,
+    "institutional_credibility": 70,
+    "decision_timeliness": 62,
+    "public_pressure": 55
+  },
+  "evidence_cards": [
+    {
+      "id": "audio_01",
+      "title": "Viral Distress Audio",
+      "description": "A 19-second audio clip claims civilians are trapped and asking for help. The original file is unavailable and the clip has been reposted many times.",
+      "tags": [
+        "audio",
+        "original_missing",
+        "viral",
+        "humanitarian_claim"
+      ],
+      "reliability": "unverified",
+      "states": [
+        "Flagged",
+        "Requires Follow-Up"
+      ]
+    },
+    {
+      "id": "forensics_01",
+      "title": "Preliminary Audio Integrity Note",
+      "description": "A technical reviewer notes abrupt waveform transitions and background noise discontinuities consistent with editing or synthetic generation, but the assessment is preliminary.",
+      "tags": [
+        "media_forensics",
+        "synthetic_audio_possible",
+        "preliminary"
+      ],
+      "reliability": "partial",
+      "states": [
+        "Flagged",
+        "Partial"
+      ]
+    },
+    {
+      "id": "translation_02",
+      "title": "Viral Translation Thread",
+      "description": "A translated caption says civilians are being deliberately harmed. A second translator says the original language is ambiguous and may indicate fear rather than confirmed harm.",
+      "tags": [
+        "translation_uncertainty",
+        "public_claim",
+        "contested_translation"
+      ],
+      "reliability": "disputed",
+      "states": [
+        "Contradictory",
+        "Requires Follow-Up"
+      ]
+    },
+    {
+      "id": "rescue_01",
+      "title": "Search-and-Rescue Channel Note",
+      "description": "A safe-channel query finds no confirmed rescue request matching the viral clip, but local weather and sea conditions remain hazardous.",
+      "tags": [
+        "humanitarian_response",
+        "no_confirmed_match",
+        "weather_risk"
+      ],
+      "reliability": "partial",
+      "states": [
+        "Partial"
+      ]
+    },
+    {
+      "id": "family_01",
+      "title": "Civilian Family Inquiry",
+      "description": "A family asks whether the voice belongs to a missing fisherfolk relative. Publishing the name or location could expose them to harassment or retaliation.",
+      "tags": [
+        "civilian_risk",
+        "privacy_risk",
+        "family_inquiry"
+      ],
+      "reliability": "sensitive",
+      "states": [
+        "Sensitive",
+        "Requires Follow-Up"
+      ]
+    }
+  ],
+  "correct_confidence_range": [
+    "Unverified",
+    "Manipulated / Unclear",
+    "Possible"
+  ],
+  "unsafe_choices": [
+    "Confirmed",
+    "Likely"
+  ],
+  "release_options": [
+    {
+      "id": "humanitarian_cautious",
+      "label": "Release humanitarian caution: urgent claims are under review; civilian protection and verification are active.",
+      "effects": {
+        "truth_integrity": 10,
+        "escalation_risk": -6,
+        "civilian_safety": 8,
+        "institutional_credibility": 8,
+        "decision_timeliness": 4,
+        "public_pressure": -5
+      }
+    },
+    {
+      "id": "overclaim",
+      "label": "Release urgent confirmation: civilians are confirmed harmed and deliberate action is confirmed.",
+      "effects": {
+        "truth_integrity": -35,
+        "escalation_risk": 30,
+        "civilian_safety": -15,
+        "institutional_credibility": -25,
+        "decision_timeliness": 10,
+        "public_pressure": 8
+      }
+    },
+    {
+      "id": "hold_all",
+      "label": "Hold all public comment until the original audio is authenticated.",
+      "effects": {
+        "truth_integrity": 6,
+        "escalation_risk": -4,
+        "civilian_safety": 2,
+        "institutional_credibility": -3,
+        "decision_timeliness": -10,
+        "public_pressure": 12
+      }
+    },
+    {
+      "id": "corrective",
+      "label": "Issue media-integrity warning: audio and translations remain unauthenticated; humanitarian channels are being checked.",
+      "effects": {
+        "truth_integrity": 14,
+        "escalation_risk": -10,
+        "civilian_safety": 8,
+        "institutional_credibility": 6,
+        "decision_timeliness": 0,
+        "public_pressure": -6
+      }
+    }
+  ],
+  "minimum_evidence_cards_required_before_scoring": 4,
+  "learning_objectives": [
+    "Respect humanitarian urgency without treating unauthenticated media as verified fact",
+    "Identify synthetic media and translation risk before public attribution",
+    "Protect civilian names, families, and locations from exposure",
+    "Use public language that supports humanitarian verification without overclaiming",
+    "Separate rescue posture from public attribution posture"
+  ],
+  "facilitator_notes": [
+    "This scenario tests whether players can act with humanitarian care without validating an unauthenticated distress clip.",
+    "The correct posture is not indifference; it is verification plus civilian protection.",
+    "Watch whether players release names or specific locations without protection review.",
+    "v0.2.1: Watch whether players separate humanitarian response from public attribution."
+  ],
+  "debrief_prompts": [
+    "How did humanitarian urgency affect confidence scoring?",
+    "Did the player separate rescue action from public attribution?",
+    "What translation or synthetic-media risks changed the decision?",
+    "How did humanitarian urgency change the temptation to overclaim?"
+  ],
+  "recommended_language_keys": [
+    "humanitarian_unverified",
+    "translation_uncertain",
+    "manipulated_unclear"
+  ]
+}

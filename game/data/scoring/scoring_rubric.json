@@ -1,0 +1,52 @@
+{
+  "meters": {
+    "truth_integrity": {
+      "label": "Truth Integrity",
+      "good_direction": "higher",
+      "description": "Did the player match claims to evidence?"
+    },
+    "escalation_risk": {
+      "label": "Escalation Risk",
+      "good_direction": "lower",
+      "description": "Did decisions inflame or slow crisis pressure?"
+    },
+    "civilian_safety": {
+      "label": "Civilian Safety",
+      "good_direction": "higher",
+      "description": "Were vulnerable people protected?"
+    },
+    "institutional_credibility": {
+      "label": "Institutional Credibility",
+      "good_direction": "higher",
+      "description": "Would the process survive scrutiny later?"
+    },
+    "decision_timeliness": {
+      "label": "Decision Timeliness",
+      "good_direction": "higher",
+      "description": "Did the player act fast enough without overclaiming?"
+    },
+    "public_pressure": {
+      "label": "Public Pressure",
+      "good_direction": "lower",
+      "description": "How intense is demand for immediate public language?"
+    }
+  },
+  "performance_bands": [
+    {
+      "min": 85,
+      "label": "Excellent governance discipline"
+    },
+    {
+      "min": 70,
+      "label": "Credible crisis handling"
+    },
+    {
+      "min": 55,
+      "label": "Mixed outcome"
+    },
+    {
+      "min": 0,
+      "label": "Governance failure risk"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "confirmed": "Available evidence has been reviewed and supports a confirmed incident assessment. Further details will be released through approved channels.",
+  "likely": "Available information indicates the reported incident is likely, but some details remain under review. Further verification is ongoing.",
+  "possible": "Initial information suggests a possible incident, but key details remain under verification.",
+  "unverified": "We are aware of circulating reports and are reviewing available information. The available media has not yet been authenticated.",
+  "disputed": "Available accounts conflict, and no final assessment has been made.",
+  "manipulated_unclear": "Circulating media has not been authenticated and should not be treated as verified. We are reviewing source integrity and context.",
+  "humanitarian_unverified": "We are aware of urgent humanitarian claims and are working to verify them while prioritizing civilian protection and safety.",
+  "translation_uncertain": "Some circulated translations remain under review. Public conclusions should not rely on unverified translations alone."
+}

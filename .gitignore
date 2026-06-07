@@ -1,0 +1,41 @@
+# Godot local/editor state
+.godot/
+.import/
+*.import
+
+# Godot export credentials should never be committed
+export_credentials.cfg
+.godot/export_credentials.cfg
+
+# Keep export presets committed so release builders can reproduce exports
+!game/export_presets.cfg
+!game/export_presets.cfg.example
+
+# Build outputs
+builds/**/*.exe
+builds/**/*.pck
+builds/**/*.zip
+builds/**/*.dmg
+builds/**/*.app
+builds/**/*.x86_64
+!builds/README.md
+!builds/windows/README.md
+
+# Runtime/user output
+user://
+aar_reports/*.json
+aar_reports/*.txt
+!aar_reports/README.md
+
+# Python/test cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+.vscode/
+.idea/
