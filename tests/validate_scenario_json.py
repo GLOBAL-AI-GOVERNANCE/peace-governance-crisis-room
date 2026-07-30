@@ -87,4 +87,4 @@ for path in scenario_paths:
             if not isinstance(effect, int):
                 raise SystemExit(f"{path.name}: release option effect must be int")
 
-print(f"Scenario JSON validation passed for {len(scenario_paths)} scenarios with v0.2.1 rules.")
+print(f"Scenario JSON validation passed for {len(scenario_paths)} scenarios with v0.2.x rules.")

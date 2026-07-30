@@ -21,10 +21,10 @@ Use this checklist before publishing a Windows build.
 - [ ] Install Godot Windows export templates.
 - [ ] Export using `game/export_presets.cfg`.
 - [ ] Confirm output files exist:
-  - `PeaceOS_CrisisRoom_v0.2.1.exe`
-  - `PeaceOS_CrisisRoom_v0.2.1.pck`
+  - `PeaceGovernanceCrisisRoom_v0.2.2.exe`
+  - `PeaceGovernanceCrisisRoom_v0.2.2.pck`
 - [ ] Test the exported build on a Windows machine.
-- [ ] Package as `PeaceOS_CrisisRoom_v0.2.1_Windows.zip`.
+- [ ] Package as `PeaceGovernanceCrisisRoom_v0.2.2_Windows.zip`.
 
 ## Release Hygiene
 

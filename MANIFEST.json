@@ -1,254 +1,234 @@
 {
-  "name": "peace-os-crisis-room",
-  "version": "0.2.1",
-  "package": "v0.2.1-public-build-candidate-source-doctrine-verified-corrected",
-  "created_utc": "2026-06-07T03:35:00Z",
-  "validation_note": "Generated after correcting GitHub release asset names and repository publish target; MANIFEST.json intentionally excludes itself.",
+  "file_count": 45,
   "files": [
     {
       "path": ".github/ISSUE_TEMPLATE/bug_report.md",
       "sha256": "64c1f26c801e44d1b4c11f69d43786f5b93443d80afa13ddb6594948d87d6669",
-      "bytes": 595
+      "size_bytes": 595
     },
     {
       "path": ".github/ISSUE_TEMPLATE/runtime_test_report.md",
       "sha256": "e5e7e4d051b84c3ef849ce7c4473e18b13a307da7eb43c78309d1b48c1963c5c",
-      "bytes": 1018
+      "size_bytes": 1018
     },
     {
       "path": ".github/ISSUE_TEMPLATE/scenario_suggestion.md",
       "sha256": "ae05ddbb16e358d4c5a3f5212c839480b074ceb953e95ae8ac02677f5c699cf7",
-      "bytes": 755
+      "size_bytes": 755
     },
     {
       "path": ".github/pull_request_template.md",
       "sha256": "dc2b14300d4eea597c3d3b8e0ee8d5e45ff320389abe2980e8cb4079e0cb2d68",
-      "bytes": 644
+      "size_bytes": 644
+    },
+    {
+      "path": ".github/workflows/source-checks.yml",
+      "sha256": "a99ea6216ba23a2d69c1ebec830dce0802ce9eed38e2078eadb6c82b073a3cf4",
+      "size_bytes": 723
     },
     {
       "path": ".gitignore",
       "sha256": "87fcd51f949ea8a56a02096c6733bc07e293e66daefaa70704bedc8ca0bcfc62",
-      "bytes": 666
+      "size_bytes": 666
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "5beb7e4007565be27fa565942b878b9f69fc135e09524a0279d5927e4c842af5",
-      "bytes": 2272
+      "sha256": "048d70bac12c864879834b110ba83700404104b2c30ff73115836b9409cb7649",
+      "size_bytes": 2709
     },
     {
       "path": "CODE_OF_CONDUCT.md",
       "sha256": "e46514c31458439a8f023a8d2d595b68077fc19a3bd0c8f1e356fa06cccabd9d",
-      "bytes": 416
+      "size_bytes": 416
     },
     {
       "path": "CONTRIBUTING.md",
       "sha256": "2d76773b4905db6ff1158bb73dc59d582e04825034e140e9b749c033d98e9722",
-      "bytes": 1330
+      "size_bytes": 1330
     },
     {
       "path": "DOCTRINE.md",
-      "sha256": "39a1c2ae875a86d886e92cac6fd44c812b84e1b2ab673cedacb5f9007c65a2fd",
-      "bytes": 4804
-    },
-    {
-      "path": "FINAL_REPO_VERIFICATION_REPORT.md",
-      "sha256": "55cfb9415bc5ae2a90312292fb63a7e4bf2602625d87c5d023ad81f0c495f314",
-      "bytes": 3020
-    },
-    {
-      "path": "GITHUB_RELEASE_DESCRIPTION_v0.2.1_SOURCE.md",
-      "sha256": "69f22c85c5f98a4744873907bd9a0ad6cd231b70866dec1b187c5081047f81c6",
-      "bytes": 1500
-    },
-    {
-      "path": "GIT_PUSH_COMMANDS.md",
-      "sha256": "8e1145f6fe28c9b7f2667ad25a7925f7f74ed6d53218dc9b94fe4723bbb692b5",
-      "bytes": 566
+      "sha256": "4394ecd222cb573c509a8f0f007f2605b5479a6fddd7a425809b9441b38c0c89",
+      "size_bytes": 4818
     },
     {
       "path": "LICENSE",
       "sha256": "84b4135d6317b20390858d007ef6c8e7042443aee7840d5cab232918c5ce815e",
-      "bytes": 1368
-    },
-    {
-      "path": "PATCH_NOTES.md",
-      "sha256": "dae305111762bde8b78ebc2f6de9d76907ffdb49a92f44a14a655e722d561ce7",
-      "bytes": 712
-    },
-    {
-      "path": "PRE_PUBLISH_CHECKLIST.md",
-      "sha256": "3c737fa1600171313156f5f5d44b98be79890ba1dfdc28b630588a2e10b9130a",
-      "bytes": 1263
-    },
-    {
-      "path": "PUBLISH_REPO_NOW.md",
-      "sha256": "e2b868f4f65e5107107496436a598b00856f4039e4db20392f20f152b6571bc4",
-      "bytes": 1484
+      "size_bytes": 1368
     },
     {
       "path": "README.md",
-      "sha256": "b62ca8129267d18c86ca2153d7e80ef915c63201e3e746ee63e8d93f2b268711",
-      "bytes": 4281
+      "sha256": "9052227070adde7121021e078098c538706c771458a77a6c902feec537ab841e",
+      "size_bytes": 7002
     },
     {
       "path": "RELEASE_NOTES.md",
-      "sha256": "420073c5f6ae8449ec48d8424bb75495a80ac9b185aa97f6bf6eace97ea7f165",
-      "bytes": 1553
-    },
-    {
-      "path": "REPO_TOPICS.md",
-      "sha256": "94cc55f174c8b13ca8c962633068a1473fb165190da465b69a5b84579c1c0a0d",
-      "bytes": 399
+      "sha256": "947e5697169f9dd542d23bc79b38ae69bb8ee3559734793564dc57e151b4b063",
+      "size_bytes": 1170
     },
     {
       "path": "SECURITY.md",
-      "sha256": "f7e87b3dca67149e5d9cae0c7e642dc49a01ffab1bd3d07ad051c378eb7c6e0d",
-      "bytes": 646
-    },
-    {
-      "path": "SHA256SUMS.txt",
-      "sha256": "a7fffa91560f50e14a4401e7e05bacc50b23ad092e75ae93650a490f4cd534f1",
-      "bytes": 4472
+      "sha256": "b587d8924e07ed60a62e4a1444195293bd2e4cf515591eeb2d647bf8b82f3508",
+      "size_bytes": 1660
     },
     {
       "path": "VERSION",
-      "sha256": "71015c979ccb0fc8a0be7ca0ae83046ab045cdc2c8faa09fb2f0f7e440f9b4a6",
-      "bytes": 6
+      "sha256": "998f6b887ed7a6ef44e84210d0237b715bed42ea7254f48dc418afec0a484103",
+      "size_bytes": 6
     },
     {
       "path": "aar_reports/README.md",
       "sha256": "748f2c88902c5d01cd4c24ac43e89c1eeb99ba2c9e4c7b8f0efa4bc6dcbc4a82",
-      "bytes": 216
-    },
-    {
-      "path": "ai-governance-peace-os/source-framework-notes.md",
-      "sha256": "9fc1b804b5144fb113baeb22439fdd338128ee6966426f2b7a5c3639268fc577",
-      "bytes": 410
+      "size_bytes": 216
     },
     {
       "path": "builds/README.md",
-      "sha256": "52c9a15cfb42f0d611a3e591bac2a1d1655bf84afd6330cc2592a46ab5c05216",
-      "bytes": 440
+      "sha256": "ad208b4668047f2f0bc9a12a216a14256426318c997cde62f500ac6896a28a4c",
+      "size_bytes": 550
     },
     {
       "path": "builds/windows/README.md",
-      "sha256": "be4264e06f258b72567003fb27880391b86625e53b54bd773349987d671c27d4",
-      "bytes": 357
+      "sha256": "1350b99a62fba2afd508a601f6e0f10f47e2b58f2a1268c28ddfefcdce562d66",
+      "size_bytes": 378
     },
     {
       "path": "docs/demo-screen-sequence.md",
-      "sha256": "7d80fa2b94ec5e9a377c8fda8fd7465053e4edd888eff4bcd2791e2f384f7218",
-      "bytes": 1166
+      "sha256": "8b1679f36d4a81a4285939238c91ca45ddfe551b99c272d29da62edb217cbeb5",
+      "size_bytes": 1146
     },
     {
       "path": "docs/design-document.md",
       "sha256": "54d00ed345599e3443dab628ca8d8979ebdffb0117a41629e2dea8da7a0a9434",
-      "bytes": 2641
+      "size_bytes": 2641
     },
     {
       "path": "docs/facilitator-guide.md",
       "sha256": "7d79b2bfc21d3a357aefa8958f2b368cab454d9540ebac477a8f6e3436c0adbb",
-      "bytes": 1182
+      "size_bytes": 1182
     },
     {
       "path": "docs/facilitator-mode.md",
       "sha256": "b2564d9e900d7835b8e0c2a369ef4c3591aab9f72b8ac5d0d0d66af1b8821df5",
-      "bytes": 1457
+      "size_bytes": 1457
     },
     {
       "path": "docs/learning-objectives.md",
       "sha256": "995be22bd3dcde8ccc101632dc5554066ae2e5ed746fb15d094da854868fa197",
-      "bytes": 449
+      "size_bytes": 449
     },
     {
       "path": "docs/peace-os-doctrine.md",
       "sha256": "6f11332322e402e426f3b234fccf5cd34d05641ee15a6875928ee44eff5245e7",
-      "bytes": 395
+      "size_bytes": 395
     },
     {
       "path": "docs/policy-boundaries.md",
       "sha256": "5e3be057d02a62b13169b53672845394bf8de73a5f76dc05ed8a3a5b7bcbd038",
-      "bytes": 286
+      "size_bytes": 286
+    },
+    {
+      "path": "docs/provenance/source-framework-notes.md",
+      "sha256": "9fc1b804b5144fb113baeb22439fdd338128ee6966426f2b7a5c3639268fc577",
+      "size_bytes": 410
     },
     {
       "path": "docs/public-build-candidate-checklist.md",
-      "sha256": "f4d00d252d88226e46acde8e8b2ce8478925c91a71dad22e90ca106d1d95ffb1",
-      "bytes": 1667
+      "sha256": "d36f54098eabe11c4f3ef1e139b5fce65f258d06401e821e509807f3da45d3a5",
+      "size_bytes": 1688
+    },
+    {
+      "path": "docs/release-evidence/source-readiness-v0.2.2.md",
+      "sha256": "a2b865434be826ad7aca5955a32fecb215cb77fc7ff544b1685721d0ad1b6a14",
+      "size_bytes": 1750
     },
     {
       "path": "docs/what-this-game-can-and-cannot-teach.md",
       "sha256": "355d83efda538d3ca6969aaf2ed8f5607882a4fa021ec1dc6b7a677c3d1707d7",
-      "bytes": 885
+      "size_bytes": 885
     },
     {
       "path": "docs/windows-export-guide.md",
       "sha256": "438b2f5fa585bfcf7a35d9c7e98c057000ba6b931e84944bce9faa6ff5eeebd9",
-      "bytes": 791
+      "size_bytes": 791
     },
     {
       "path": "docs/workshop-guide.md",
       "sha256": "7531ca3052c6fc9ef0c7cde058148cb42095ec050ba71218a2acf8a47706ed8b",
-      "bytes": 907
+      "size_bytes": 907
     },
     {
       "path": "game/data/release_language/controlled_language.json",
       "sha256": "ecafe8762cac2df73266f84b5fa3d04b387aab54dcd751d1b7f01047059d126b",
-      "bytes": 1122
+      "size_bytes": 1122
     },
     {
       "path": "game/data/scenarios/scenario_01_viral_collision_video.json",
       "sha256": "310ca89c667c0abffd452cea4394b8931ea6d2049501afe1dfb47a416f12b932",
-      "bytes": 5221
+      "size_bytes": 5221
     },
     {
       "path": "game/data/scenarios/scenario_02_deepfake_distress_call.json",
       "sha256": "a18d5795dbdd52a07c5dbb8f98633e5cb30c2621d9b838b21e690edf24b533dc",
-      "bytes": 6200
+      "size_bytes": 6200
     },
     {
       "path": "game/data/scoring/scoring_rubric.json",
       "sha256": "453704f1547b90577d8b39ea9a06f208c5f1c3ba56d88c215c766e42fb408b65",
-      "bytes": 1365
+      "size_bytes": 1365
     },
     {
       "path": "game/export_presets.cfg",
-      "sha256": "92cbd583f88874aa004b19228d60f654a23baf97e3be9e60c963062f14121fff",
-      "bytes": 1093
+      "sha256": "6b8ff012bfd183aadb2d97a9da4d9bde7a0211e977b1b66324499ea7b50d3eeb",
+      "size_bytes": 1100
     },
     {
       "path": "game/export_presets.cfg.example",
       "sha256": "92cbd583f88874aa004b19228d60f654a23baf97e3be9e60c963062f14121fff",
-      "bytes": 1093
+      "size_bytes": 1093
     },
     {
       "path": "game/icon.svg",
       "sha256": "76ad46488be79dccb77855d21a0d107277a42b0b05649e0fbedbd2a71c24c3f2",
-      "bytes": 356
+      "size_bytes": 356
     },
     {
       "path": "game/project.godot",
       "sha256": "8e300383fd296dd2b8cbc570d817a1327157d26b10a44093bedb14c0add8e403",
-      "bytes": 455
+      "size_bytes": 455
     },
     {
       "path": "game/scenes/Main.tscn",
       "sha256": "918ff877dc1a66148a3eb2fc504b823a54584b0d10d960233582ef0415481920",
-      "bytes": 283
+      "size_bytes": 283
     },
     {
       "path": "game/scripts/Main.gd",
       "sha256": "1728a9570e23bb0d189b770cf9f9cba2143171a734008353973b59eadbae7633",
-      "bytes": 32969
+      "size_bytes": 32969
     },
     {
       "path": "tests/validate_release_language.py",
       "sha256": "a546b7299bad5f86f10ef020219fec8a5f61e93cfb4390a5db39e9b6a911be57",
-      "bytes": 712
+      "size_bytes": 712
     },
     {
       "path": "tests/validate_scenario_json.py",
-      "sha256": "cf2956a3202af2ccc20c10d8c4085e283fefb6d62c123f4b7f559667567d91f5",
-      "bytes": 4820
+      "sha256": "87f97d43591d0d7b59b8f894917465077f398be6090855c84da127b03a1b01a0",
+      "size_bytes": 4820
+    },
+    {
+      "path": "tools/generate_manifest.py",
+      "sha256": "8e76489f976360a1d39233cd9b84e1df1de8cd1ff7ff5bf0a680f6b6ac50b0dc",
+      "size_bytes": 5448
+    },
+    {
+      "path": "tools/validate_repository.py",
+      "sha256": "549639610b0135677e436bfe357f8ac9937b9bbb887b9b2ee4e154592dd54f0d",
+      "size_bytes": 9344
     }
-  ]
+  ],
+  "integrity_scope": "All stage-0 Git index blobs except MANIFEST.json and SHA256SUMS.txt. Hashing index blobs makes the inventory independent of local checkout line endings.",
+  "name": "peace-governance-crisis-room",
+  "release_scope": "public-source-readiness",
+  "version": "0.2.2"
 }
