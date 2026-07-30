@@ -1,32 +1,35 @@
 # Release Notes
 
-## Peace OS: Crisis Room v0.2.1
+## v0.2.2 — Public Source Readiness
 
-**Release type:** Runtime Polish & Public Build Candidate source release.
+### Public identity
 
-v0.2.1 responds to the super UX review of v0.2.0. It keeps the v0.2 direction intact while sharpening playability, pressure, evidence consequences, scenario-aware language, and debrief quality.
+- Aligns the repository to **Peace Governance Crisis Room**.
+- Preserves **Peace OS: Crisis Room** as the prior project title.
+- Clarifies that this is a simulation and training prototype, not an operating system.
 
-## What Changed
+### Source verification
 
-- Public pressure now rises automatically after evidence review, confidence scoring, release selection, and final action submission.
-- Evidence markings now affect scoring and AAR feedback.
-- Scenario 02 now surfaces humanitarian, translation, and manipulated-media language more directly.
-- The AAR is organized into diagnostic sections.
-- Stale design and facilitator docs were updated.
-- Scenario JSON validation now checks scenario-aware controlled-language keys.
-- A demo screen-sequence plan was added for future screenshots and README assets.
+- Runs both existing scenario and controlled-language validators.
+- Adds repository structure, boundary, link, JSON, workflow-pin, and artifact checks.
+- Adds a deterministic source manifest and SHA-256 inventory.
+- Adds hosted source checks with read-only workflow permissions.
 
-## What Is Still Not Included
+### Public cleanup
 
-- No verified Windows executable.
-- No live Godot runtime test inside the package build environment.
-- No live AI, live data, web scraping, real incident analysis, legal attribution, or operational use.
+- Removes one-time publishing instructions and stale root-level verification artifacts.
+- Moves source-framework notes into `docs/provenance/`.
+- Replaces the old final-verification claim with bounded source-readiness evidence.
 
-## Next Gate
+### Physical gates still open
 
-Open the project in Godot, run both scenarios end-to-end, confirm AAR export, capture screenshots, and export the first Windows build ZIP.
+This source release does not claim:
 
+- Godot runtime execution
+- End-to-end scenario completion
+- After-action review export
+- Windows export
+- External-PC package testing
+- A production-ready game or operational system
 
-## v0.2.1 final source polish
-
-This package updates the Godot project title to v0.2.1, separates initial evidence indicators from player markings, and recalibrates scoring so strong playthroughs receive clearer positive feedback while overclaiming remains heavily penalized.
+Those gates must be completed before a Windows executable is published.

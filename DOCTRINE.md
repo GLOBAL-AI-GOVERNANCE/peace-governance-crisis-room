@@ -2,7 +2,7 @@
 
 ## Core Doctrine
 
-Peace OS: Crisis Room is built around one governing principle:
+Peace Governance Crisis Room is built around one governing principle:
 
 > Do not let AI accelerate crisis before truth catches up.
 
@@ -150,6 +150,6 @@ Publish the executable as a separate release asset.
 
 ## Final Doctrine Statement
 
-Peace OS: Crisis Room exists to make verification playable.
+Peace Governance Crisis Room exists to make verification playable.
 
 Its purpose is to train humans to slow down the dangerous moment when machines, media, institutions, and public pressure begin converting uncertainty into escalation.

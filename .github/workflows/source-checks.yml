@@ -1,0 +1,32 @@
+name: Source Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-checks:
+    name: Source Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Validate scenarios
+        run: python3 -B tests/validate_scenario_json.py
+
+      - name: Validate controlled release language
+        run: python3 -B tests/validate_release_language.py
+
+      - name: Verify manifest
+        run: python3 -B tools/generate_manifest.py --check
+
+      - name: Validate public source readiness
+        run: python3 -B tools/validate_repository.py

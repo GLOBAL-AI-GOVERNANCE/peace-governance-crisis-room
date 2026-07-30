@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.2.2 — Public Source Readiness
+
+- Aligned the public identity to Peace Governance Crisis Room.
+- Clarified source-ready versus runtime-tested maturity.
+- Added hosted source, manifest, link, JSON, and boundary checks.
+- Removed obsolete publishing instructions and root-level release clutter.
+- Moved prior framework notes into the provenance directory.
+- Preserved the Windows executable as a separate physical validation gate.
+
 ## v0.2.1 — Runtime Polish & Public Build Candidate Source Release
 
 ### Added
