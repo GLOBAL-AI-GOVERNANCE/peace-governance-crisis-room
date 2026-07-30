@@ -3,23 +3,23 @@
   "files": [
     {
       "path": ".github/ISSUE_TEMPLATE/bug_report.md",
-      "sha256": "e27568ae97a5b6f51e4c5530dcba722a22ed5a054e6098591c330ef524317c11",
-      "size_bytes": 634
+      "sha256": "64c1f26c801e44d1b4c11f69d43786f5b93443d80afa13ddb6594948d87d6669",
+      "size_bytes": 595
     },
     {
       "path": ".github/ISSUE_TEMPLATE/runtime_test_report.md",
-      "sha256": "5e14e73121ad09dfcbc59ef4aa134275f9c6a8bb3939818904ab1281d07f369b",
-      "size_bytes": 1074
+      "sha256": "e5e7e4d051b84c3ef849ce7c4473e18b13a307da7eb43c78309d1b48c1963c5c",
+      "size_bytes": 1018
     },
     {
       "path": ".github/ISSUE_TEMPLATE/scenario_suggestion.md",
-      "sha256": "c96dfec18626fe496934e325a4c58084fce73a0c4a24c694aa7fe1a4a44b5acf",
-      "size_bytes": 797
+      "sha256": "ae05ddbb16e358d4c5a3f5212c839480b074ceb953e95ae8ac02677f5c699cf7",
+      "size_bytes": 755
     },
     {
       "path": ".github/pull_request_template.md",
-      "sha256": "9d9e173db740a62848f5789bb33bfd296d859ff9985d5b81136157a3e16447bb",
-      "size_bytes": 674
+      "sha256": "dc2b14300d4eea597c3d3b8e0ee8d5e45ff320389abe2980e8cb4079e0cb2d68",
+      "size_bytes": 644
     },
     {
       "path": ".github/workflows/source-checks.yml",
@@ -28,8 +28,8 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "5505a05c2fb3196af6ca56926f055e5132e20b2c63363aa9942c28c6c371434f",
-      "size_bytes": 707
+      "sha256": "87fcd51f949ea8a56a02096c6733bc07e293e66daefaa70704bedc8ca0bcfc62",
+      "size_bytes": 666
     },
     {
       "path": "CHANGELOG.md",
@@ -38,8 +38,8 @@
     },
     {
       "path": "CODE_OF_CONDUCT.md",
-      "sha256": "5a4e1fd52ddfa2276416a1028eceb7213593bdd14a8e2b508d52566d33bf05da",
-      "size_bytes": 429
+      "sha256": "e46514c31458439a8f023a8d2d595b68077fc19a3bd0c8f1e356fa06cccabd9d",
+      "size_bytes": 416
     },
     {
       "path": "CONTRIBUTING.md",
@@ -53,8 +53,8 @@
     },
     {
       "path": "LICENSE",
-      "sha256": "1988e9d378c748bd6be483f5484e8ca7ced7b07528c5aee17b759579a481f470",
-      "size_bytes": 1396
+      "sha256": "84b4135d6317b20390858d007ef6c8e7042443aee7840d5cab232918c5ce815e",
+      "size_bytes": 1368
     },
     {
       "path": "README.md",
@@ -78,8 +78,8 @@
     },
     {
       "path": "aar_reports/README.md",
-      "sha256": "697b6a4f8059ac4e0314ae911bd99d9d1ac0fe1c6a212d852c3404a219c500f4",
-      "size_bytes": 225
+      "sha256": "748f2c88902c5d01cd4c24ac43e89c1eeb99ba2c9e4c7b8f0efa4bc6dcbc4a82",
+      "size_bytes": 216
     },
     {
       "path": "builds/README.md",
@@ -98,38 +98,38 @@
     },
     {
       "path": "docs/design-document.md",
-      "sha256": "a637e5dc4f87169e48b995650f32efe958c127a67e42532c12031db67bbd696c",
-      "size_bytes": 2709
+      "sha256": "54d00ed345599e3443dab628ca8d8979ebdffb0117a41629e2dea8da7a0a9434",
+      "size_bytes": 2641
     },
     {
       "path": "docs/facilitator-guide.md",
-      "sha256": "62af549833b7c43ae7008cb8d04bbd717fdbcc0238c4913ec46ec08a4ce3344a",
-      "size_bytes": 1216
+      "sha256": "7d79b2bfc21d3a357aefa8958f2b368cab454d9540ebac477a8f6e3436c0adbb",
+      "size_bytes": 1182
     },
     {
       "path": "docs/facilitator-mode.md",
-      "sha256": "8d30a2cf52c381a35e5ad2e09769a8a0aeb3719d1e6f7ef3fa21ba193cdac51f",
-      "size_bytes": 1496
+      "sha256": "b2564d9e900d7835b8e0c2a369ef4c3591aab9f72b8ac5d0d0d66af1b8821df5",
+      "size_bytes": 1457
     },
     {
       "path": "docs/learning-objectives.md",
-      "sha256": "432d8cf527256ca94e69bb4d7650cbf2a5cd07cd007638b49d7cb16b9039806e",
-      "size_bytes": 461
+      "sha256": "995be22bd3dcde8ccc101632dc5554066ae2e5ed746fb15d094da854868fa197",
+      "size_bytes": 449
     },
     {
       "path": "docs/peace-os-doctrine.md",
-      "sha256": "539cae978c764776168fd0e0e3e56898d6029cb5b255f513f7831dedcd45bae6",
-      "size_bytes": 410
+      "sha256": "6f11332322e402e426f3b234fccf5cd34d05641ee15a6875928ee44eff5245e7",
+      "size_bytes": 395
     },
     {
       "path": "docs/policy-boundaries.md",
-      "sha256": "73356448ebc846401d332c7db8e94f68c58c262c5469d1c1eec175af158a6f68",
-      "size_bytes": 300
+      "sha256": "5e3be057d02a62b13169b53672845394bf8de73a5f76dc05ed8a3a5b7bcbd038",
+      "size_bytes": 286
     },
     {
       "path": "docs/provenance/source-framework-notes.md",
-      "sha256": "8e774106508da0b6ca20d1f64764e8d06caef1f233c307a338348f603311bdf9",
-      "size_bytes": 421
+      "sha256": "9fc1b804b5144fb113baeb22439fdd338128ee6966426f2b7a5c3639268fc577",
+      "size_bytes": 410
     },
     {
       "path": "docs/public-build-candidate-checklist.md",
@@ -143,38 +143,38 @@
     },
     {
       "path": "docs/what-this-game-can-and-cannot-teach.md",
-      "sha256": "b887ffdd481bfec770f495e81fd753fe4e678d7998b0ca2e72738d376804c8ba",
-      "size_bytes": 914
+      "sha256": "355d83efda538d3ca6969aaf2ed8f5607882a4fa021ec1dc6b7a677c3d1707d7",
+      "size_bytes": 885
     },
     {
       "path": "docs/windows-export-guide.md",
-      "sha256": "d5960daf499ac868c952f81442e4a9cb8dd0e8b37356e309e188c08e9a7986b1",
-      "size_bytes": 821
+      "sha256": "438b2f5fa585bfcf7a35d9c7e98c057000ba6b931e84944bce9faa6ff5eeebd9",
+      "size_bytes": 791
     },
     {
       "path": "docs/workshop-guide.md",
-      "sha256": "105eac620599d81b7acd041a547b9aff7997a7b76e86bc1299504d2a22732cad",
-      "size_bytes": 938
+      "sha256": "7531ca3052c6fc9ef0c7cde058148cb42095ec050ba71218a2acf8a47706ed8b",
+      "size_bytes": 907
     },
     {
       "path": "game/data/release_language/controlled_language.json",
-      "sha256": "cb9190a373a3ac585f6a4460d5b7176e95b7bc5bfde7524bbf7a128388de3bc1",
-      "size_bytes": 1131
+      "sha256": "ecafe8762cac2df73266f84b5fa3d04b387aab54dcd751d1b7f01047059d126b",
+      "size_bytes": 1122
     },
     {
       "path": "game/data/scenarios/scenario_01_viral_collision_video.json",
-      "sha256": "e738746d36943eb12e03fe035fa7fe42c27449ebe84281efa5b38dbee8176147",
-      "size_bytes": 5382
+      "sha256": "310ca89c667c0abffd452cea4394b8931ea6d2049501afe1dfb47a416f12b932",
+      "size_bytes": 5221
     },
     {
       "path": "game/data/scenarios/scenario_02_deepfake_distress_call.json",
-      "sha256": "7e31e5187b5539290f79dc7417e7f04346f91a4708ff920b5c49afa4b541a47f",
-      "size_bytes": 6376
+      "sha256": "a18d5795dbdd52a07c5dbb8f98633e5cb30c2621d9b838b21e690edf24b533dc",
+      "size_bytes": 6200
     },
     {
       "path": "game/data/scoring/scoring_rubric.json",
-      "sha256": "eba4713166a72b40bf6855308fce8f11d8c946c904423cf74a6823cca0c40b97",
-      "size_bytes": 1416
+      "sha256": "453704f1547b90577d8b39ea9a06f208c5f1c3ba56d88c215c766e42fb408b65",
+      "size_bytes": 1365
     },
     {
       "path": "game/export_presets.cfg",
@@ -183,33 +183,33 @@
     },
     {
       "path": "game/export_presets.cfg.example",
-      "sha256": "8f0c47f043524d7c948eafe8b5256b293d5a693d2c9373b1eff8e8238cffd445",
-      "size_bytes": 1131
+      "sha256": "92cbd583f88874aa004b19228d60f654a23baf97e3be9e60c963062f14121fff",
+      "size_bytes": 1093
     },
     {
       "path": "game/icon.svg",
-      "sha256": "9239daa302cd0c12fc0e2e3167966393c67d17fe8125a632b0bb518d05c39930",
-      "size_bytes": 361
+      "sha256": "76ad46488be79dccb77855d21a0d107277a42b0b05649e0fbedbd2a71c24c3f2",
+      "size_bytes": 356
     },
     {
       "path": "game/project.godot",
-      "sha256": "8893a9bae69e544627a3dba838b19b5505ffdbc440dffd6ba56a3b8f54c89647",
-      "size_bytes": 474
+      "sha256": "8e300383fd296dd2b8cbc570d817a1327157d26b10a44093bedb14c0add8e403",
+      "size_bytes": 455
     },
     {
       "path": "game/scenes/Main.tscn",
-      "sha256": "93751e99ca12489d88f6873a2430da8fca6d27bcea2c19f91b4ecf127894d86a",
-      "size_bytes": 295
+      "sha256": "918ff877dc1a66148a3eb2fc504b823a54584b0d10d960233582ef0415481920",
+      "size_bytes": 283
     },
     {
       "path": "game/scripts/Main.gd",
-      "sha256": "2c153d977612ef07d050c38ea8ffae0c0e82d82fbca3540f0e8cc59a7ad57042",
-      "size_bytes": 33719
+      "sha256": "1728a9570e23bb0d189b770cf9f9cba2143171a734008353973b59eadbae7633",
+      "size_bytes": 32969
     },
     {
       "path": "tests/validate_release_language.py",
-      "sha256": "c682d658b22720bbed7903da6a24d2c50d346076ecad23e1335e6d209380ab35",
-      "size_bytes": 729
+      "sha256": "a546b7299bad5f86f10ef020219fec8a5f61e93cfb4390a5db39e9b6a911be57",
+      "size_bytes": 712
     },
     {
       "path": "tests/validate_scenario_json.py",
@@ -218,8 +218,8 @@
     },
     {
       "path": "tools/generate_manifest.py",
-      "sha256": "6ddaac482c6bd7e65af09a03f6319088d5ee001dcb743482511d46d0a8e9610e",
-      "size_bytes": 4053
+      "sha256": "8e76489f976360a1d39233cd9b84e1df1de8cd1ff7ff5bf0a680f6b6ac50b0dc",
+      "size_bytes": 5448
     },
     {
       "path": "tools/validate_repository.py",
@@ -227,7 +227,7 @@
       "size_bytes": 9344
     }
   ],
-  "integrity_scope": "All repository files except MANIFEST.json and SHA256SUMS.txt; both integrity files are excluded to avoid cyclic hashing.",
+  "integrity_scope": "All stage-0 Git index blobs except MANIFEST.json and SHA256SUMS.txt. Hashing index blobs makes the inventory independent of local checkout line endings.",
   "name": "peace-governance-crisis-room",
   "release_scope": "public-source-readiness",
   "version": "0.2.2"
