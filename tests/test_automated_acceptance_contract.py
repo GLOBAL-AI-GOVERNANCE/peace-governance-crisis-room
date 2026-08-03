@@ -64,6 +64,9 @@ class AutomatedAcceptanceContractTests(unittest.TestCase):
         self.assertIn('new WebSocket', self.browser)
         self.assertNotIn("from 'playwright'", self.browser)
         self.assertNotIn("from 'puppeteer'", self.browser)
+        self.assertIn('existsSync', self.browser)
+        self.assertIn('Timed out waiting for DevTools response', self.browser)
+        self.assertNotIn("spawnSync(candidate, ['--version']", self.browser)
 
     def test_source_only_automated_acceptance_executes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

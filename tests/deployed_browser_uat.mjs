@@ -7,7 +7,7 @@
  * Protocol and writes machine-readable and human-readable evidence.
  */
 import { spawn, spawnSync } from 'node:child_process';
-import { mkdtempSync, rmSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdtempSync, rmSync, writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import process from 'node:process';
@@ -81,15 +81,11 @@ function browserCandidates(explicit = '') {
 
 function findBrowser(explicit = '') {
   for (const candidate of browserCandidates(explicit)) {
-    if (candidate.includes('/') || candidate.includes('\\')) {
-      const result = spawnSync(candidate, ['--version'], { encoding: 'utf8' });
-      if (result.status === 0) return { path: candidate, version: (result.stdout || result.stderr).trim() };
-    } else {
-      const path = commandPath(candidate);
-      if (!path) continue;
-      const result = spawnSync(path, ['--version'], { encoding: 'utf8' });
-      if (result.status === 0) return { path, version: (result.stdout || result.stderr).trim() };
-    }
+    const path = candidate.includes('/') || candidate.includes('\\')
+      ? candidate
+      : commandPath(candidate);
+    if (!path || !existsSync(path)) continue;
+    return { path, version: basename(path) };
   }
   fail('No supported Chrome, Edge, or Chromium executable was found. Set PEACE_OS_BROWSER to its full path.');
 }
@@ -110,11 +106,12 @@ async function launchBrowser(browserPath) {
     '--metrics-recording-only',
     '--mute-audio',
     '--hide-scrollbars',
+    '--disable-gpu',
     '--window-size=1440,1200',
     'about:blank',
   ];
   if (process.platform !== 'win32' && typeof process.getuid === 'function' && process.getuid() === 0) args.unshift('--no-sandbox');
-  const child = spawn(browserPath, args, { stdio: ['ignore', 'ignore', 'pipe'] });
+  const child = spawn(browserPath, args, { stdio: ['ignore', 'ignore', 'pipe'], windowsHide: true });
   let stderr = '';
   let debuggerUrl = '';
   child.stderr.setEncoding('utf8');
@@ -132,8 +129,20 @@ async function launchBrowser(browserPath) {
     child.kill('SIGKILL');
     fail(`Timed out waiting for browser DevTools endpoint: ${stderr.slice(-2000)}`);
   }
+  let version = basename(browserPath);
+  try {
+    const endpoint = new URL(debuggerUrl);
+    const response = await fetch(`http://${endpoint.hostname}:${endpoint.port}/json/version`, { signal: AbortSignal.timeout(5000) });
+    if (response.ok) {
+      const details = await response.json();
+      version = details.Browser || version;
+    }
+  } catch {
+    // Version text is diagnostic only; the live DevTools endpoint is the functional gate.
+  }
   return {
     child,
+    version,
     profile,
     debuggerUrl,
     async close() {
@@ -188,10 +197,17 @@ class CDPClient {
     this.listeners.set(method, callbacks);
   }
 
-  send(method, params = {}) {
+  send(method, params = {}, timeoutMs = 15000) {
     const id = this.nextId++;
     return new Promise((resolvePromise, reject) => {
-      this.pending.set(id, { resolve: resolvePromise, reject });
+      const timer = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`Timed out waiting for DevTools response: ${method}`));
+      }, timeoutMs);
+      this.pending.set(id, {
+        resolve: value => { clearTimeout(timer); resolvePromise(value); },
+        reject: error => { clearTimeout(timer); reject(error); },
+      });
       this.ws.send(JSON.stringify({ id, method, params }));
     });
   }
@@ -218,7 +234,7 @@ class CDPClient {
 async function createPage(debuggerUrl) {
   const endpoint = new URL(debuggerUrl);
   const httpOrigin = `http://${endpoint.hostname}:${endpoint.port}`;
-  const response = await fetch(`${httpOrigin}/json/new?${encodeURIComponent('about:blank')}`, { method: 'PUT' });
+  const response = await fetch(`${httpOrigin}/json/new?${encodeURIComponent('about:blank')}`, { method: 'PUT', signal: AbortSignal.timeout(10000) });
   if (!response.ok) fail(`Unable to create browser page: HTTP ${response.status}`);
   const target = await response.json();
   const client = new CDPClient(target.webSocketDebuggerUrl);
@@ -474,6 +490,7 @@ async function main() {
   if (nodeMajor < 22) fail(`Node.js 22 or newer is required; found ${process.versions.node}`);
   const browser = findBrowser(options.browser);
   const runtime = await launchBrowser(browser.path);
+  browser.version = runtime.version;
   const client = await createPage(runtime.debuggerUrl);
   const errors = [];
   const requests = [];
