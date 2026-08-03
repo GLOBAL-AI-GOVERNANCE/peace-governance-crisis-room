@@ -1,7 +1,12 @@
 {
   "artifact": "peace-os-crisis-room",
-  "file_count": 129,
+  "file_count": 130,
   "files": [
+    {
+      "bytes": 180,
+      "path": ".gitattributes",
+      "sha256": "a6a4daeb937338e4f047f07dc26a28c84cec056c88a3342f76cd62e3273526f1"
+    },
     {
       "bytes": 599,
       "path": ".github/ISSUE_TEMPLATE/bug_report.md",
@@ -373,9 +378,9 @@
       "sha256": "726a4aa4d4eadffbd1ae0136a99747330d7406a5d3b3bcaa3465de78493c6c9f"
     },
     {
-      "bytes": 26555,
+      "bytes": 27147,
       "path": "tests/deployed_browser_uat.mjs",
-      "sha256": "4c0d0a74b6666af1057d2e3413eef7f65bb340caa6e494ab3b339f9ad36d6f8a"
+      "sha256": "e047fe30682940e16d91fa1f8a2721838865f699729508066febc01c7357ff4e"
     },
     {
       "bytes": 11323,
@@ -418,9 +423,9 @@
       "sha256": "2c50a64dd88feef2f53326d6fa2e904d9fcad5071c9547166707386ba0bd42e1"
     },
     {
-      "bytes": 4230,
+      "bytes": 4436,
       "path": "tests/test_automated_acceptance_contract.py",
-      "sha256": "6ac07fbc36f672b46108e5382ec6f5c33bf752aff5fc827ccb5e6d4fdf7df6d3"
+      "sha256": "b858dfed389826d0eedd9bd4fcddc95b64428465f0a5f109473bea8a99829e7f"
     },
     {
       "bytes": 1225,
@@ -533,9 +538,9 @@
       "sha256": "9caf2684957d10ac4bb2d0af611de4a469c990e17376987dc8372b5be37d2363"
     },
     {
-      "bytes": 11992,
+      "bytes": 12026,
       "path": "tools/run_automated_acceptance.py",
-      "sha256": "aa88e4bd21149598c364668c62ddb2433c9c786321789e23078749c13757c339"
+      "sha256": "da7d46fbc9fbdf4975d3b0b31fb37e6f80d5d13bc41d780b3d97f77f24a95920"
     },
     {
       "bytes": 6041,

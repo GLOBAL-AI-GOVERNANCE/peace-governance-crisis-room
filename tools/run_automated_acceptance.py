@@ -21,7 +21,7 @@ EXPECTED_ASSETS = {
     '': ('Peace OS: Crisis Room', 'Verification before amplification'),
     'app.js': ('Decision fingerprint', 'Download After-Action Review Record'),
     'styles.css': (':focus-visible', 'prefers-reduced-motion'),
-    'scoring.js': ('scoreDecision',),
+    'scoring.js': ('scoreBreakdown', 'totalScore', 'performanceLabel'),
     'data/scenarios/index.json': ('scenario_01_viral_collision_video', 'scenario_02_deepfake_distress_call'),
     'data/scoring/scoring_rubric.json': ('minimum_evidence_marking', 'score_components'),
 }
