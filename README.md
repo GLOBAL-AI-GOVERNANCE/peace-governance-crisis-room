@@ -1,187 +1,90 @@
-# Peace Governance Crisis Room
+# Peace OS: Crisis Room
 
-[![Source Checks](https://github.com/GLOBAL-AI-GOVERNANCE/peace-governance-crisis-room/actions/workflows/source-checks.yml/badge.svg?branch=main)](https://github.com/GLOBAL-AI-GOVERNANCE/peace-governance-crisis-room/actions/workflows/source-checks.yml)
+A fictional, local-only simulation for practicing evidence review, civilian protection, responsible public language, and human-controlled crisis decisions.
 
-**A fictional serious policy simulation for crisis verification, civilian protection, human release authority, and de-escalation under public pressure.**
+> Verification before amplification. Human control before release.
 
-- **Current source release:** `v0.2.2`
-- **Maturity:** Source-ready educational prototype
-- **Windows executable:** Not included
-- **Runtime status:** Godot execution, Windows export, and external-PC testing remain physical validation gates
+**Release status:** `v0.3.0-rc1` Integrated Web Review Candidate
 
-This project was previously presented as **Peace OS: Crisis Room**. The current public identity is **Peace Governance Crisis Room** because the repository is a bounded simulation and training prototype, not an operating system.
+**Expected exercise time:** 15–25 minutes
 
-Players enter a fictional crisis room where viral media, incomplete evidence, public pressure, civilian risk, and escalation dynamics collide. The objective is not to accuse first. The objective is to verify responsibly, protect civilians, preserve institutional credibility, and prevent AI-assisted claims from outrunning evidence.
+**Privacy:** no account, telemetry, live data, backend, or external AI
 
-> Verification before amplification.
-> Human control before release.
-> Civilian protection before intelligence value.
-> Confidence scoring before public attribution.
+[Launch the web simulation](https://global-ai-governance.github.io/peace-os-crisis-room/) · [Verification status](VERIFICATION.md) · [Release limits](PUBLIC_RELEASE_GATE.md)
 
-## Start Here
+[![Peace OS: Crisis Room start screen](docs/assets/peace-os-crisis-room-preview.webp)](https://global-ai-governance.github.io/peace-os-crisis-room/)
 
-### Validate the source
+## Quick start
 
-From the repository root:
+1. Choose a fictional scenario and mode.
+2. Review every evidence item and commit a bounded human decision.
+3. Read, download, copy, or print the After-Action Review.
+
+To run locally:
 
 ```bash
-python tests/validate_scenario_json.py
-python tests/validate_release_language.py
-python tools/generate_manifest.py --check
-python tools/validate_repository.py
+python3 -m http.server 8000 --directory web
 ```
 
-### Run from source
+Open `http://localhost:8000/`.
 
-1. Install a compatible Godot 4.x release.
-2. Open `game/project.godot`.
-3. Run the project.
-4. Select Scenario 01 or Scenario 02.
-5. Review evidence, mark risks, choose a confidence level, select release language, and complete the after-action review.
+## What participants practice
 
-Running the Python checks does not prove that the Godot project launches or that every interaction works. Runtime claims require direct execution in Godot.
+- distinguishing evidence pressure from evidence quality;
+- separating confidence, corroboration, and authenticity;
+- choosing public language proportionate to uncertainty;
+- protecting civilians and sensitive information;
+- selecting feasible actions within simulated time and authority limits;
+- reviewing and confirming the exact decision package before results appear.
 
-## Finished Outcome
+## Modes
 
-A completed simulation session should produce a human-reviewed decision record containing:
+- **Practice** provides learning explanations after commitment.
+- **Assessment** keeps teaching clues hidden until commitment. It is not proctored, secure, certified, or suitable for professional qualification.
+- **Facilitator** reveals authored teaching context for guided discussion.
 
-- Evidence reviewed and evidence still missing
-- Reliability and contradiction markings
-- Selected confidence level
-- Civilian-protection and information-integrity considerations
-- Controlled public-release posture
-- Consequence score
-- After-action review findings
+The selected scenario and mode remain visible throughout the exercise.
 
-The simulation supports learning and facilitated discussion. Its output is not an operational intelligence product, factual attribution, legal conclusion, or real-world release authorization.
+## Data and recovery
 
-## Doctrine
+Session state remains in browser-local storage when available. The experience continues in memory-only mode when storage is blocked. Users can resume, start over, or delete saved session data. Downloaded After-Action Review records remain on the user’s device until the user removes them.
 
-The doctrine is documented in [`DOCTRINE.md`](DOCTRINE.md).
-
-Core rules:
-
-- Verification before amplification.
-- Human control before release.
-- Civilian protection before intelligence value.
-- Confidence scoring before public attribution.
-- AI may advise. AI may not decide.
-- Do not let AI accelerate crisis before evidence catches up.
-
-## Included Source
-
-- Godot 4.x project source
-- Two fictional crisis scenarios
-- Visual crisis dashboard and meter system
-- Public-pressure and decision-clock mechanics
-- Evidence review and player marking states
-- Confidence scoring and controlled release language
-- Diagnostic score summary and after-action review
-- Facilitator and observer mode
-- Scenario and release-language validation scripts
-- Windows export preset
-- Source manifest and SHA-256 inventory
-- Runtime and Windows release checklists
-
-## Scenarios
-
-1. **The Viral Collision Video**
-   A disputed maritime collision video goes viral before verification is complete.
-
-2. **The Deepfake Distress Call**
-   A possible synthetic distress call triggers humanitarian urgency, translation uncertainty, and public pressure.
-
-Both scenarios are fictional. They are not incident records, intelligence assessments, or representations of a specific government, organization, or person.
-
-## Core Gameplay Loop
+## Repository map
 
 ```text
-Incident appears
-↓
-Evidence cards arrive
-↓
-Player reviews and marks evidence
-↓
-Public pressure rises
-↓
-Player assigns confidence
-↓
-Player checks civilian and information-integrity risks
-↓
-Player selects release posture
-↓
-Simulation scores consequences
-↓
-After-action review explains the result
+core/       Authoritative fictional scenarios, policy, scoring, and language
+web/        Semantic browser client
+game/       Experimental Godot desktop client, not runtime-verified here
+schemas/    Governance and AAR schemas
+tests/      Regression, parity, source, and deployed-browser tests
+tools/      Validation and deterministic release tooling
 ```
 
-## Evidence and Safety Boundary
+## Validate
 
-This repository is:
+Requires Python 3.9+ and Node.js 22+.
 
-- A serious policy simulation
-- A training and education prototype
-- A fictional crisis-verification exercise
-- A bridge between tabletop analysis and interactive learning
-- A source-side release candidate for runtime validation
-
-This repository is not:
-
-- An operational system
-- An intelligence platform
-- A legal attribution tool
-- A government product
-- A live maritime-awareness system
-- A deepfake detection engine
-- A substitute for human judgment
-- A verified Windows executable release
-
-No live AI, live data, real incident ingestion, classified information, real witness identity data, autonomous release authority, or legal attribution capability is included.
-
-A passing source check establishes only that the committed files satisfy the repository's bounded structural rules. It does not establish runtime correctness, scenario validity for a real crisis, detection accuracy, policy compliance, or operational fitness.
-
-## Runtime and Windows Release Gate
-
-Before publishing a Windows executable:
-
-1. Open the project in Godot 4.x.
-2. Run both scenarios end to end.
-3. Confirm evidence interactions and decision scoring.
-4. Confirm after-action review export.
-5. Export the Windows executable and `.pck`.
-6. Test the packaged build on an external Windows PC.
-7. Record the test environment and observed results.
-8. Publish the Windows ZIP as a separate tested artifact.
-
-See:
-
-- [`docs/windows-export-guide.md`](docs/windows-export-guide.md)
-- [`docs/public-build-candidate-checklist.md`](docs/public-build-candidate-checklist.md)
-- [`docs/release-evidence/source-readiness-v0.2.2.md`](docs/release-evidence/source-readiness-v0.2.2.md)
-
-## Repository Map
-
-```text
-game/                 Godot source project and fictional scenario data
-tests/                Scenario and controlled-language validators
-tools/                Repository and manifest validation
-docs/                 Public documentation, provenance, and release evidence
-builds/               Build boundary and future tested-package location
-aar_reports/          Example or generated after-action material
-MANIFEST.json         Deterministic source inventory
-SHA256SUMS.txt         SHA-256 inventory for the same bounded file set
+```bash
+python3 tools/validate_repository.py
+python3 tools/generate_manifest.py --check
+python3 tools/run_extended_vv.py --output /tmp/peace-os-extended-vv.json
+python3 tools/run_automated_acceptance.py \
+  --output-json /tmp/peace-os-acceptance.json \
+  --output-md /tmp/peace-os-acceptance.md
 ```
 
-## Security
+[`VERIFICATION.md`](VERIFICATION.md) separates automated evidence from remaining human, accessibility, Godot, Windows, and operational gates. Passing source checks does not establish those claims.
 
-Use GitHub private vulnerability reporting for sensitive repository-integrity, unsafe-content, or disclosure concerns. See [`SECURITY.md`](SECURITY.md).
+## Boundaries
 
-## Contributing
+Peace OS is the product name. This project is not a computer operating system. It is not an intelligence product, media-authentication tool, emergency-response platform, legal-attribution engine, certification product, or autonomous release authority. It uses fictional scenarios and does not authorize real-world publication or action.
 
-Read [`CONTRIBUTING.md`](CONTRIBUTING.md), [`DOCTRINE.md`](DOCTRINE.md), and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) before proposing changes.
+## Security, contribution, and citation
 
-## License
+- [`SECURITY.md`](SECURITY.md)
+- [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
+- [`CITATION.cff`](CITATION.cff)
+- [`docs/automated-acceptance.md`](docs/automated-acceptance.md)
 
-See [`LICENSE`](LICENSE).
-
-**Do not let AI accelerate crisis before evidence catches up.**
+MIT licensed. See [`LICENSE`](LICENSE).

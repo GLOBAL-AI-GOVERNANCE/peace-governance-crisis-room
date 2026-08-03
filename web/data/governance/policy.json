@@ -1,0 +1,53 @@
+{
+  "allow_autonomous_release": false,
+  "allow_external_action_execution": false,
+  "allow_external_ai": false,
+  "allow_live_data": false,
+  "allow_telemetry": false,
+  "allowed_authenticity_levels": [
+    "No manipulation indicators",
+    "Manipulation suspected",
+    "Authenticity unclear",
+    "Not applicable"
+  ],
+  "allowed_confidence_levels": [
+    "Confirmed",
+    "Likely",
+    "Possible",
+    "Unverified"
+  ],
+  "allowed_corroboration_levels": [
+    "Corroborated",
+    "Partially corroborated",
+    "Contradictory",
+    "Uncorroborated"
+  ],
+  "audit_hash_algorithm": "sha256",
+  "audit_limit": "The exported hash-linked audit record detects internal mutation when the original chain is retained. It is unsigned, not independently anchored, and can be recomputed by a person who controls the complete record. It does not independently prove who made the decision or when.",
+  "canonical_repository": "GLOBAL-AI-GOVERNANCE/peace-os-crisis-room",
+  "decision_digest_algorithm": "sha256",
+  "evidence_boundary": "This policy governs a fictional educational simulation. It does not authorize real-world publication, attribution, intelligence action, or autonomous execution.",
+  "policy_id": "peace-os-crisis-room-baseline",
+  "policy_version": "0.3.0-rc1",
+  "product_name": "Peace OS: Crisis Room",
+  "public_delivery": "semantic_web_first",
+  "require_action_budget": true,
+  "require_complete_evidence_review": true,
+  "require_decision_digest_confirmation": true,
+  "require_final_review_screen": true,
+  "require_human_final_confirmation": true,
+  "require_in_memory_audit_chain": true,
+  "require_separated_experience_modes": true,
+  "required_score_components": {
+    "actions": 15,
+    "authenticity": 10,
+    "confidence": 15,
+    "corroboration": 10,
+    "evidence_marking": 20,
+    "evidence_review": 10,
+    "release": 15,
+    "timeliness": 5
+  },
+  "schema_version": "1.1",
+  "simulation_only": true
+}

@@ -1,0 +1,408 @@
+{
+  "generated_by": "tests/generate_golden_vectors.py",
+  "schema_version": "1.0",
+  "vectors": [
+    {
+      "decision": {
+        "actions": {
+          "deescalation_channel": false,
+          "humanitarian_check": false,
+          "info_integrity_review": true,
+          "protect_civilians": true,
+          "request_original_media": true,
+          "senior_review": true
+        },
+        "authenticity": "Manipulation suspected",
+        "confidence": "Possible",
+        "corroboration": "Partially corroborated",
+        "human_confirmation": true,
+        "marks": {
+          "ais_01": {
+            "flagged": false,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "bot_01": {
+            "flagged": true,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "translation_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "video_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "witness_01": {
+            "flagged": false,
+            "follow_up": true,
+            "sensitive": true,
+            "used": true
+          }
+        },
+        "release_id": "safe_cautious",
+        "remaining_minutes": 14,
+        "reviewed_count": 5
+      },
+      "expected": {
+        "breakdown": {
+          "actions": 15,
+          "authenticity": 10,
+          "confidence": 15,
+          "corroboration": 10,
+          "evidence_marking": 20,
+          "evidence_review": 10,
+          "release": 15,
+          "timeliness": 5
+        },
+        "label": "Excellent governance discipline",
+        "score": 100
+      },
+      "id": "scenario_01_viral_collision_video-ideal",
+      "scenario_file": "scenario_01_viral_collision_video.json"
+    },
+    {
+      "decision": {
+        "actions": {
+          "deescalation_channel": false,
+          "humanitarian_check": false,
+          "info_integrity_review": true,
+          "protect_civilians": true,
+          "request_original_media": true,
+          "senior_review": true
+        },
+        "authenticity": "Manipulation suspected",
+        "confidence": "Possible",
+        "corroboration": "Partially corroborated",
+        "human_confirmation": true,
+        "marks": {
+          "ais_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "bot_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "translation_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "video_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "witness_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          }
+        },
+        "release_id": "safe_cautious",
+        "remaining_minutes": 14,
+        "reviewed_count": 5
+      },
+      "expected": {
+        "breakdown": {
+          "actions": 15,
+          "authenticity": 10,
+          "confidence": 15,
+          "corroboration": 10,
+          "evidence_marking": 0,
+          "evidence_review": 10,
+          "release": 15,
+          "timeliness": 5
+        },
+        "label": "Mixed outcome",
+        "score": 74
+      },
+      "id": "scenario_01_viral_collision_video-blind",
+      "scenario_file": "scenario_01_viral_collision_video.json"
+    },
+    {
+      "decision": {
+        "actions": {
+          "deescalation_channel": false,
+          "humanitarian_check": false,
+          "info_integrity_review": true,
+          "protect_civilians": true,
+          "request_original_media": true,
+          "senior_review": true
+        },
+        "authenticity": "No manipulation indicators",
+        "confidence": "Confirmed",
+        "corroboration": "Corroborated",
+        "human_confirmation": true,
+        "marks": {
+          "ais_01": {
+            "flagged": false,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "bot_01": {
+            "flagged": true,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "translation_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "video_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "witness_01": {
+            "flagged": false,
+            "follow_up": true,
+            "sensitive": true,
+            "used": true
+          }
+        },
+        "release_id": "overclaim",
+        "remaining_minutes": 14,
+        "reviewed_count": 5
+      },
+      "expected": {
+        "breakdown": {
+          "actions": 15,
+          "authenticity": 0,
+          "confidence": 0,
+          "corroboration": 0,
+          "evidence_marking": 20,
+          "evidence_review": 10,
+          "release": 0,
+          "timeliness": 5
+        },
+        "label": "Governance failure risk",
+        "score": 50
+      },
+      "id": "scenario_01_viral_collision_video-overclaim",
+      "scenario_file": "scenario_01_viral_collision_video.json"
+    },
+    {
+      "decision": {
+        "actions": {
+          "deescalation_channel": false,
+          "humanitarian_check": true,
+          "info_integrity_review": true,
+          "protect_civilians": true,
+          "request_original_media": false,
+          "senior_review": true
+        },
+        "authenticity": "Manipulation suspected",
+        "confidence": "Unverified",
+        "corroboration": "Partially corroborated",
+        "human_confirmation": true,
+        "marks": {
+          "audio_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "family_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": true,
+            "used": false
+          },
+          "forensics_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "rescue_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": true
+          },
+          "translation_02": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          }
+        },
+        "release_id": "humanitarian_cautious",
+        "remaining_minutes": 14,
+        "reviewed_count": 5
+      },
+      "expected": {
+        "breakdown": {
+          "actions": 15,
+          "authenticity": 10,
+          "confidence": 15,
+          "corroboration": 10,
+          "evidence_marking": 20,
+          "evidence_review": 10,
+          "release": 15,
+          "timeliness": 5
+        },
+        "label": "Excellent governance discipline",
+        "score": 100
+      },
+      "id": "scenario_02_deepfake_distress_call-ideal",
+      "scenario_file": "scenario_02_deepfake_distress_call.json"
+    },
+    {
+      "decision": {
+        "actions": {
+          "deescalation_channel": false,
+          "humanitarian_check": true,
+          "info_integrity_review": true,
+          "protect_civilians": true,
+          "request_original_media": false,
+          "senior_review": true
+        },
+        "authenticity": "Manipulation suspected",
+        "confidence": "Unverified",
+        "corroboration": "Partially corroborated",
+        "human_confirmation": true,
+        "marks": {
+          "audio_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "family_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "forensics_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "rescue_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          },
+          "translation_02": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": false
+          }
+        },
+        "release_id": "humanitarian_cautious",
+        "remaining_minutes": 14,
+        "reviewed_count": 5
+      },
+      "expected": {
+        "breakdown": {
+          "actions": 15,
+          "authenticity": 10,
+          "confidence": 15,
+          "corroboration": 10,
+          "evidence_marking": 0,
+          "evidence_review": 10,
+          "release": 15,
+          "timeliness": 5
+        },
+        "label": "Mixed outcome",
+        "score": 74
+      },
+      "id": "scenario_02_deepfake_distress_call-blind",
+      "scenario_file": "scenario_02_deepfake_distress_call.json"
+    },
+    {
+      "decision": {
+        "actions": {
+          "deescalation_channel": false,
+          "humanitarian_check": true,
+          "info_integrity_review": true,
+          "protect_civilians": true,
+          "request_original_media": false,
+          "senior_review": true
+        },
+        "authenticity": "No manipulation indicators",
+        "confidence": "Confirmed",
+        "corroboration": "Corroborated",
+        "human_confirmation": true,
+        "marks": {
+          "audio_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "family_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": true,
+            "used": false
+          },
+          "forensics_01": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          },
+          "rescue_01": {
+            "flagged": false,
+            "follow_up": false,
+            "sensitive": false,
+            "used": true
+          },
+          "translation_02": {
+            "flagged": true,
+            "follow_up": true,
+            "sensitive": false,
+            "used": true
+          }
+        },
+        "release_id": "overclaim",
+        "remaining_minutes": 14,
+        "reviewed_count": 5
+      },
+      "expected": {
+        "breakdown": {
+          "actions": 15,
+          "authenticity": 0,
+          "confidence": 0,
+          "corroboration": 0,
+          "evidence_marking": 20,
+          "evidence_review": 10,
+          "release": 0,
+          "timeliness": 5
+        },
+        "label": "Governance failure risk",
+        "score": 50
+      },
+      "id": "scenario_02_deepfake_distress_call-overclaim",
+      "scenario_file": "scenario_02_deepfake_distress_call.json"
+    }
+  ]
+}

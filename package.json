@@ -1,0 +1,13 @@
+{
+  "name": "peace-os-crisis-room",
+  "version": "0.3.0-rc1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/js/*.test.mjs",
+    "check:web": "node tests/js/web-static-check.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

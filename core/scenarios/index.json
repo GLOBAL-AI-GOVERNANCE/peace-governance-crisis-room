@@ -1,0 +1,14 @@
+{
+  "scenarios": [
+    {
+      "file": "scenario_01_viral_collision_video.json",
+      "id": "scenario_01_viral_collision_video"
+    },
+    {
+      "file": "scenario_02_deepfake_distress_call.json",
+      "id": "scenario_02_deepfake_distress_call"
+    }
+  ],
+  "schema_version": "1.0",
+  "version": "0.3.0-rc1"
+}

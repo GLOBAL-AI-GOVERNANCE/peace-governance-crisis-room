@@ -1,67 +1,22 @@
 # Changelog
 
-## v0.2.2 — Public Source Readiness
+## v0.3.0-rc1 - Integrated Web Review Candidate
 
-- Aligned the public identity to Peace Governance Crisis Room.
-- Clarified source-ready versus runtime-tested maturity.
-- Added hosted source, manifest, link, JSON, and boundary checks.
-- Removed obsolete publishing instructions and root-level release clutter.
-- Moved prior framework notes into the provenance directory.
-- Preserved the Windows executable as a separate physical validation gate.
+- Establishes **Peace OS: Crisis Room** as the active product identity and `GLOBAL-AI-GOVERNANCE/peace-os-crisis-room` as the canonical repository.
+- Aligns all future build-placeholder filenames to the canonical `Peace_OS_Crisis_Room` identity.
+- Adds the semantic local-only web experience for two fictional scenarios and three bounded modes.
+- Adds chance-corrected evidence marking, confidence/corroboration/authenticity separation, action budgets, controlled language, digest-bound confirmation, and structured After-Action Review.
+- Adds browser focus continuity, saved-session recovery, accessible meter semantics, duplicate-commit protection, memory-only fallback, clipboard/download recovery, narrow-screen AAR cards, and confirmed saved-session deletion.
+- Adds shared-core Python/JavaScript/web/Godot parity and exhaustive reference-model analysis.
+- Adds automated deployed-browser journey validation without redefining human user acceptance testing.
+- Adds deterministic exact-commit source packaging, provenance, file-level SPDX SBOM, and checksum verification.
+- Hardens the one-shot GitHub controller with exact account, source, base, patch, commit, PR-head, merge-commit, deployment, release-state, and asset-set binding.
+- Keeps detailed release operations and authorization records outside the public source tree.
 
-## v0.2.1 — Runtime Polish & Public Build Candidate Source Release
+## v0.2.2
 
-### Added
-- Automatic public-pressure ticks after major decisions.
-- Evidence-marking consequences for civilian risk, information-integrity risk, follow-up discipline, and confidence-assessment use.
-- Diagnostic AAR sections: what went right, overclaims, misses, civilian protection, information integrity, evidence marking, and recommended better decision.
-- Scenario-aware controlled language recommendations.
-- `docs/demo-screen-sequence.md` for README screenshots/GIF planning.
+Public source-readiness baseline under the historical title **Peace Governance Crisis Room**. Runtime and executable gates remained open.
 
-### Changed
-- Updated stale `docs/design-document.md` to reflect two scenarios and v0.2.1 scope.
-- Updated `docs/facilitator-mode.md` to reflect implemented facilitator / observer mode.
-- Updated scenario versions to `0.2.1`.
-- Strengthened scenario validation for scenario-aware controlled language keys.
+## v0.2.1
 
-### Boundary
-This remains a fictional, scripted, safe source prototype. It does not include live AI, live data, web scraping, real incident analysis, legal attribution, or operational decision support.
-
-# Changelog
-
-## v0.2.0
-
-### Added
-
-- Second scenario: Deepfake Distress Call.
-- Scenario selection menu.
-- Crisis dashboard with meter bars.
-- Public pressure / decision clock mechanic.
-- Better evidence card interaction states.
-- Score summary screen.
-- Exportable AAR JSON report.
-- Facilitator / observer mode.
-- Scoring rubric data file.
-- Windows export preset and guide.
-- Workshop guide and what-this-game-can-and-cannot-teach documentation.
-- Expanded validation tests for all scenario files and release-language coverage.
-
-### Changed
-
-- Upgraded repository from v0.1.1 usability hotfix to v0.2.0 real playability source release.
-- Expanded README and release notes for training use.
-
-### Not Included
-
-- No live AI integration.
-- No live data ingestion.
-- No web scraping.
-- No maritime API connection.
-- No real incident analysis.
-- No legal attribution system.
-- No verified Windows executable in this ZIP.
-
-
-## v0.2.1 final source polish
-
-This package updates the Godot project title to v0.2.1, separates initial evidence indicators from player markings, and recalibrates scoring so strong playthroughs receive clearer positive feedback while overclaiming remains heavily penalized.
+Earlier public source candidate under **Peace OS: Crisis Room**. Subsequent audit found scoring-incentive defects summarized in `docs/audit/v0.2.1-public-scoring-audit-summary.md`.

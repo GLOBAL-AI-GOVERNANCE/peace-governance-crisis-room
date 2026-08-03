@@ -1,20 +1,19 @@
 # Builds
 
-This repository does not include a verified Windows executable.
+This source package does not include a verified Windows executable.
 
-The next packaged release gate is:
+The next public release gate is:
 
 ```text
-PeaceGovernanceCrisisRoom_v0.2.2_Windows.zip
+Peace_OS_Crisis_Room_v0.3.0-rc1_Windows.zip
 ```
 
-Publish that artifact only after:
+That release should be created only after:
 
-1. opening the project in Godot 4.x,
-2. running both fictional scenarios end to end,
-3. confirming after-action review export,
+1. opening the project in Godot,
+2. running both scenarios end-to-end,
+3. confirming AAR export,
 4. exporting the Windows executable and `.pck`,
-5. testing the complete ZIP on an external Windows machine, and
-6. recording the test evidence.
+5. testing the exported ZIP on a Windows machine.
 
-See [`../docs/windows-export-guide.md`](../docs/windows-export-guide.md).
+See `docs/windows-export-guide.md`.

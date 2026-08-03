@@ -13,7 +13,7 @@ assignees: ""
 - Source ZIP or commit:
 - Windows build filename, if applicable:
 
-## Scenario 01 — The Viral Collision Video
+## Scenario 01  -  The Viral Collision Video
 
 - [ ] Opens
 - [ ] Evidence review works
@@ -26,7 +26,7 @@ assignees: ""
 
 Notes:
 
-## Scenario 02 — The Deepfake Distress Call
+## Scenario 02  -  The Deepfake Distress Call
 
 - [ ] Opens
 - [ ] Evidence review works

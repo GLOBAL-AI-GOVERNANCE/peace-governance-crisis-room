@@ -9,7 +9,6 @@ export_credentials.cfg
 
 # Keep export presets committed so release builders can reproduce exports
 !game/export_presets.cfg
-!game/export_presets.cfg.example
 
 # Build outputs
 builds/**/*.exe
@@ -22,7 +21,6 @@ builds/**/*.x86_64
 !builds/windows/README.md
 
 # Runtime/user output
-user://
 aar_reports/*.json
 aar_reports/*.txt
 !aar_reports/README.md
@@ -39,3 +37,8 @@ Thumbs.db
 *.log
 .vscode/
 .idea/
+# Generated validation, release, and integration-review outputs
+dist/
+dist-*/
+peace-os-integration-review-*/
+publish-*.log

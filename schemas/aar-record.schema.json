@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "action_budget": {
+      "type": "object"
+    },
+    "action_costs": {
+      "type": "object"
+    },
+    "audit_chain": {
+      "minItems": 1,
+      "type": "array"
+    },
+    "audit_chain_valid": {
+      "const": true
+    },
+    "audit_limit": {
+      "minLength": 80,
+      "type": "string"
+    },
+    "authenticity_choice": {
+      "type": "string"
+    },
+    "confirmed_decision_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "corroboration_choice": {
+      "type": "string"
+    },
+    "decision_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "decision_record": {
+      "type": "object"
+    },
+    "human_final_confirmation": {
+      "const": true
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "scenario_id": {
+      "type": "string"
+    },
+    "score_breakdown": {
+      "type": "object"
+    },
+    "session_mode": {
+      "enum": [
+        "practice",
+        "assessment",
+        "facilitator"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "policy_version",
+    "session_mode",
+    "score_breakdown",
+    "decision_record",
+    "decision_digest",
+    "confirmed_decision_digest",
+    "audit_chain",
+    "audit_chain_valid",
+    "human_final_confirmation",
+    "corroboration_choice",
+    "authenticity_choice",
+    "action_budget",
+    "action_costs",
+    "audit_limit"
+  ],
+  "title": "Peace OS: Crisis Room After-Action Record",
+  "type": "object"
+}

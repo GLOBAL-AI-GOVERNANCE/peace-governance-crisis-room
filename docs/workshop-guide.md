@@ -2,7 +2,7 @@
 
 ## Workshop Title
 
-Peace OS: Crisis Room — Verification Before Amplification Under Crisis Pressure
+Peace OS: Crisis Room  -  Verification Before Amplification Under Crisis Pressure
 
 ## Learning Objectives
 

@@ -1,0 +1,43 @@
+name: integrated-vv
+
+on:
+  push:
+    branches: [main, "release/**", "feat/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: "22"
+      - name: Validate source and cross-client contracts
+        run: python tools/validate_repository.py
+      - name: Verify deterministic inventory
+        run: python tools/generate_manifest.py --check
+      - name: Build source package twice
+        if: matrix.python-version == '3.12'
+        run: |
+          python tools/build_release.py --output-dir dist-a --skip-validation
+          python tools/build_release.py --output-dir dist-b --skip-validation
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-source.zip dist-b/peace-os-crisis-room-v0.3.0-rc1-source.zip
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-provenance.json dist-b/peace-os-crisis-room-v0.3.0-rc1-provenance.json
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-SBOM.spdx.json dist-b/peace-os-crisis-room-v0.3.0-rc1-SBOM.spdx.json
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-SHA256SUMS.txt dist-b/peace-os-crisis-room-v0.3.0-rc1-SHA256SUMS.txt
