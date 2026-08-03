@@ -1,68 +1,77 @@
-# Design Document
+# Design Document: Peace OS: Crisis Room
 
-## Game Title
+## Release
 
-Peace OS: Crisis Room
+`v0.3.0-rc1` is a source release candidate correcting the rc1 learning-validity, decision-flow, publication-identity, and source-UX defects. Runtime behavior remains unverified until Godot executes the project.
 
-## Genre
+## Learning design
 
-Serious policy simulation / crisis decision game.
+The participant must:
 
-## Current Version
+1. review every evidence card;
+2. classify integrity, sensitivity, follow-up, and assessment use without being shown the answer key;
+3. assess confidence magnitude;
+4. assess independent corroboration;
+5. assess media authenticity;
+6. choose public language proportionate to those judgments;
+7. construct a governance action plan within explicit time and authority budgets;
+8. review the complete package;
+9. provide explicit human confirmation before finalization.
 
-`0.2.1` — Runtime Polish & Public Build Candidate source release.
+The transparent doctrine score totals 100 points:
 
-## Core Question
+- evidence review: 10
+- chance-corrected evidence marking: 20
+- confidence magnitude: 15
+- corroboration: 10
+- authenticity: 10
+- release posture: 15
+- bounded governance actions: 15
+- timeliness: 5
 
-Can a player prevent AI-assisted claims from escalating a crisis before evidence is strong enough?
+Diagnostic meters remain visible but do not create a second, contradictory outcome headline.
 
-## Design Goal
+## Evidence-marking model
 
-Make players feel why verification-before-amplification matters under public, political, humanitarian, and information-integrity pressure.
-
-## Current Playable Scope
-
-The v0.2.1 prototype contains two fictional scenarios:
-
-1. **Scenario 01: The Viral Collision Video** — tests viral video pressure, missing metadata, incomplete AIS-style evidence, civilian witness risk, translation uncertainty, bot amplification, and cautious public release.
-2. **Scenario 02: The Deepfake Distress Call** — tests humanitarian urgency, possible synthetic audio, translation uncertainty, family/civilian privacy risk, and the separation of safety action from public attribution.
-
-The player reviews and marks evidence, assigns confidence, selects public release posture, chooses governance actions, receives a score summary, exports an AAR, and may view facilitator / observer notes.
-
-## Core Gameplay Loop
+Each mark category is scored independently using chance-corrected balanced skill:
 
 ```text
-Scenario briefing
-→ crisis dashboard
-→ evidence review and marking
-→ public pressure rises
-→ confidence scoring
-→ controlled release language
-→ governance actions
-→ consequence screen
-→ score summary
-→ diagnostic AAR
-→ facilitator / observer view
+skill = max(0, sensitivity + specificity - 1)
 ```
 
-## v0.2.1 Design Changes
+The four category skills are averaged and mapped to 20 points. All-positive, all-negative, and chance strategies do not receive the raw-agreement advantage present in rc1. Precision, recall, specificity, and skill are included in the AAR.
 
-This release implements the super UX review recommendations at the source level:
+## Action model
 
-- public pressure now rises automatically after major choices,
-- evidence marking affects scoring and AAR diagnostics,
-- Scenario 02 receives scenario-aware controlled language recommendations,
-- AAR feedback is organized into diagnostic sections,
-- facilitator documentation is updated to reflect implemented observer mode.
+Each action has:
 
-## Learning Model
+- doctrine points;
+- time cost;
+- authority cost.
 
-The game is not a prediction tool. It is a decision-friction laboratory. It reveals overclaiming, evidence gaps, civilian-risk failures, information-integrity failures, release-language mistakes, and the cost of letting public pressure outrun evidence.
+Each scenario defines finite budgets. Selecting every action exceeds at least one budget and blocks continuation. A scenario-specific doctrine-aligned plan reaches the full 15 action points within both budgets.
 
-## What This Game Can Claim
+## Architecture
 
-The game may support structured learning about decision friction, confidence discipline, civilian protection, information integrity, public release governance, and workshop facilitation.
+- `policy.json` establishes simulation-only boundaries and required safeguards before scenario use.
+- Scenario JSON carries evidence, expected markings, three epistemic dimensions, release postures, action points, costs, and budgets.
+- `Main.gd` provides UI state, reversible navigation, final-review and human-confirmation gates, scoring, decision digest, linked audit events, and AAR export.
+- Python reference tests verify source contracts and scoring invariants without claiming Godot runtime equivalence.
+- GitHub publication tooling fails closed on canonical identity and reviewed base-commit mismatch.
 
-## What This Game Cannot Claim
+## Open design and validation questions
 
-The game does not prove real-world policy effectiveness, forecast state behavior, conduct legal attribution, process live operational data, or replace expert judgment.
+- Does the project parse and run in the current Godot 4 runtime?
+- Does explicit safe focus produce a coherent keyboard and screen-reader order?
+- Does scroll restoration behave correctly after live Control-tree rebuilds?
+- Are the scenario markings, epistemic ranges, costs, and budgets professionally defensible?
+- Do participants learn better judgment rather than merely optimize the rubric?
+- Does the interface remain usable at 200% scaling and narrow window widths?
+
+## Digest-bound confirmation
+
+The human confirmation records the canonical digest of the current decision input. Any material revision invalidates confirmation. Finalization and AAR export fail closed unless the confirmed, final, and current digests agree.
+
+## Assessment boundary
+
+Assessment mode withholds authored metadata labels, coaching, and doctrine points until finalization. It remains a self-guided mode, not a secure or proctored assessment system.

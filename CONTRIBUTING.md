@@ -1,41 +1,25 @@
 # Contributing
 
-Contributions should preserve the project’s purpose: a fictional, bounded, safe serious game about AI governance, crisis verification, civilian protection, and de-escalation.
+Read `DOCTRINE.md`, `SECURITY.md`, and `CODE_OF_CONDUCT.md` before contributing.
 
-## Good Contributions
+A change is reviewable when it includes:
 
-- fictional scenario improvements
-- clearer evidence and AAR language
-- accessibility improvements
-- scoring/adjudication refinements
-- facilitator notes and workshop guidance
-- Godot UI polish
-- documentation fixes
-- validation test improvements
+- the problem and evidence;
+- the doctrine or learning objective affected;
+- tests for scoring, policy, or data-contract changes;
+- declared assumptions and remaining limitations;
+- no live incident data, personal data, classified material, or autonomous-action capability.
 
-## Do Not Submit
+Changes to scoring, scenario data, policy, release language, AAR records, or finalization gates trigger re-audit under `docs/validation/re-audit-triggers.md`.
 
-Do not submit:
-
-- live incident data
-- classified, controlled, or sensitive material
-- real witness identities or civilian personal data
-- operational targeting details
-- legal attribution claims
-- autonomous escalation features
-- live AI, live web scraping, or real-time incident ingestion for this release line
-
-## Scenario Contribution Rule
-
-Scenarios must be fictional or safely generalized. They may be inspired by real crisis patterns, but they must not claim to represent a real active incident or identify real private persons.
-
-## Pull Request Checklist
-
-Before opening a pull request:
+Run before opening a pull request:
 
 ```bash
-python tests/validate_scenario_json.py
-python tests/validate_release_language.py
+python tools/sync_core_data.py
+python tests/generate_golden_vectors.py
+python tools/validate_repository.py
+python tools/generate_manifest.py --check
+python tests/browser_smoke.py
 ```
 
-Also confirm that new documentation does not describe the game as an operational tool, intelligence system, legal attribution engine, or government product.
+The browser smoke script may report HOLD when the local container cannot execute Chromium. Required browser evidence must be collected from a supported environment or deployed review URL.

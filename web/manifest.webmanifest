@@ -1,0 +1,17 @@
+{
+  "name": "Peace OS: Crisis Room",
+  "short_name": "Crisis Room",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f5f0",
+  "theme_color": "#14263d",
+  "description": "Fictional local-only crisis verification and human-governance simulation.",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

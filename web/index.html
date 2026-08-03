@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A fictional, local-only governance simulation for evidence review, civilian protection, responsible public language, and human-controlled crisis decisions.">
+  <meta name="theme-color" content="#14263d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
+  <title>Peace OS: Crisis Room</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <script src="frame-guard.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to simulation</a>
+  <header>
+    <div>
+      <p class="eyebrow">Fictional governance simulation</p>
+      <h1>Peace OS: Crisis Room</h1>
+      <p>Verification before amplification. Human control before release.</p>
+    </div>
+    <button id="delete-session" class="secondary" type="button" hidden disabled>Delete saved session</button>
+  </header>
+  <div id="boundary" class="boundary" role="note">
+    <strong>Fictional, local-only exercise.</strong> No login, telemetry, live data, external AI, autonomous release, or external action.
+  </div>
+  <nav id="progress" aria-label="Simulation progress"></nav>
+  <main id="main" tabindex="-1"></main>
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <footer><p>Fictional governance simulation. Local-only. No operational use.</p></footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

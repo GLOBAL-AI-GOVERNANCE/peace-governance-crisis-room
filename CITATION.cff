@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "Peace OS: Crisis Room"
+message: "Cite the repository and exact release tag used."
+authors:
+  - name: "Global AI Governance contributors"
+type: software
+version: "0.3.0-rc1"
+repository-code: "https://github.com/GLOBAL-AI-GOVERNANCE/peace-os-crisis-room"
+url: "https://global-ai-governance.github.io/peace-os-crisis-room/"
+license: MIT

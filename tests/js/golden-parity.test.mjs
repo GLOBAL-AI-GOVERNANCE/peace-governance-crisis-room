@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {totalScore,performanceLabel,scoreBreakdown} from '../../web/scoring.js';
+const vectors=JSON.parse(fs.readFileSync(new URL('../fixtures/scoring_golden_vectors.json',import.meta.url)));const rubric=JSON.parse(fs.readFileSync(new URL('../../core/scoring/scoring_rubric.json',import.meta.url)));
+for(const v of vectors.vectors)test(`golden parity ${v.id}`,()=>{const s=JSON.parse(fs.readFileSync(new URL(`../../core/scenarios/${v.scenario_file}`,import.meta.url)));assert.deepEqual(scoreBreakdown(s,v.decision),v.expected.breakdown);assert.equal(totalScore(s,v.decision,rubric),v.expected.score);assert.equal(performanceLabel(s,v.decision,rubric),v.expected.label);});

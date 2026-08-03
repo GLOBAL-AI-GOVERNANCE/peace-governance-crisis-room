@@ -8,7 +8,7 @@ assignees: ""
 
 ## Version
 
-- Version: v0.2.1
+- Version: v0.3.0-rc1
 - Running from source or Windows build:
 - OS:
 - Godot version, if applicable:
@@ -36,4 +36,4 @@ Attach screenshots or relevant console output.
 Does this issue involve live incident data, real people, legal attribution, or operational use?
 
 - [ ] No
-- [ ] Yes — explain:
+- [ ] Yes  -  explain:

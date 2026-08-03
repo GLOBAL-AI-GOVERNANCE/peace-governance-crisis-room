@@ -1,39 +1,11 @@
-# Facilitator / Observer Mode
+# Facilitator and Observer Mode
 
-## Status
+Facilitator mode supports discussion of evidence quality, confidence, civilian protection, release language, human authority, and correction under pressure.
 
-Implemented in `v0.2.0` and refined for `v0.2.1`.
+It must not be presented as an expert system or as proof of correct real-world crisis handling. Facilitators should disclose that scenario content and learning outcomes remain unverified pending independent review and human testing.
 
-Facilitator / Observer Mode is designed for classrooms, policy workshops, tabletop facilitation, and training demonstrations. It helps a facilitator see the hidden structure of the scenario while the player experiences uncertainty and pressure.
+Use the observer prompts to ask why a participant changed or retained a judgment. Reward explicit uncertainty and justified correction rather than consistency for its own sake.
 
-## What It Shows
+## Web behavior
 
-Facilitator / Observer Mode displays:
-
-- scenario title,
-- player confidence choice,
-- hidden correct-confidence range,
-- unsafe confidence choices,
-- evidence reviewed,
-- selected player actions,
-- current meter values,
-- teaching notes,
-- debrief prompts.
-
-## How To Use It
-
-1. Enable Facilitator / Observer Mode from the main menu.
-2. Select a scenario.
-3. Let the player complete the scenario normally.
-4. Open the AAR or Facilitator / Observer View after the decision.
-5. Use the hidden correct-confidence range and debrief prompts to guide discussion.
-
-## Facilitation Principle
-
-Do not tell the player the correct answer during play.
-
-Let the pressure operate first. Use facilitator mode after the decision to show where evidence discipline helped, where overclaiming appeared, and where civilian or information-integrity protections were missed.
-
-## Current Limitation
-
-Facilitator mode is implemented as an in-game observer view, not a separate multiplayer screen. A future release may add side-by-side instructor controls, replay comparison, scenario injects, and facilitator-only exports.
+The web client displays a persistent Facilitator Mode banner after entry. Facilitator-only panels expose authored scenario notes, evidence indicators, expected positive marks, action doctrine scores, and post-commit debrief prompts. This material is intentionally answer-revealing and must not be used for blind assessment.
