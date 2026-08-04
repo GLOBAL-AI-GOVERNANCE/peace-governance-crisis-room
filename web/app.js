@@ -654,8 +654,8 @@ function result() {
     <p class="identity-note">This is a fictional learning result, not an operational, legal, attribution, certification, or emergency-response decision.</p>
     <details class="technical-details">
       <summary>Technical decision record</summary>
-      <p><strong>Decision fingerprint</strong> (technical digest): <code>${esc(record.decision_digest)}</code></p>
-      <p>This digest detects changes in the canonical local decision package. It is not a digital signature and does not establish identity.</p>
+      <p class="decision-digest"><strong>Decision fingerprint</strong> (technical digest): <code>${esc(record.decision_digest)}</code></p>
+      <p>This digest detects changes in the canonical local decision package. It is not a digital signature and does not independently prove who made the decision or when.</p>
       <p>The local audit events are unsigned, not identity-authenticated, not independently timestamped, and not externally anchored. They do not prove real-world activity.</p>
     </details>
 

@@ -284,6 +284,26 @@ async function loadJson(baseUrl, relative) {
   return response.json();
 }
 
+async function waitForDeploymentMetadata(baseUrl, expectedCommit, timeoutMs = 120000) {
+  const deadline = Date.now() + timeoutMs;
+  let last = 'not fetched';
+  while (Date.now() < deadline) {
+    try {
+      const relative = `deployment.json?uat=${Date.now()}`;
+      const metadata = await loadJson(baseUrl, relative);
+      last = metadata?.commit || 'missing commit';
+      if (
+        metadata?.repository === 'GLOBAL-AI-GOVERNANCE/peace-os-crisis-room'
+        && metadata?.commit === expectedCommit.toLowerCase()
+      ) return metadata;
+    } catch (error) {
+      last = error instanceof Error ? error.message : String(error);
+    }
+    await sleep(5000);
+  }
+  fail(`Timed out waiting for exact deployment metadata; last result: ${last}`);
+}
+
 async function completeScenario(client, baseUrl, scenario, mode, { testInvalidation = false } = {}) {
   await navigate(client, `${baseUrl}?uat=${Date.now()}`);
   await client.evaluate('localStorage.clear(); true');
@@ -389,17 +409,56 @@ async function exerciseResultControls(client) {
   await click(client, '#copy-summary-button');
   checks.clipboard_denial_fallback = Boolean(await client.evaluate(`document.querySelector('#copy-fallback') && document.body.textContent.includes('Clipboard access was denied')`));
 
-  await client.evaluate(`window.__downloadName = ''; window.__originalAnchorClick = HTMLAnchorElement.prototype.click; HTMLAnchorElement.prototype.click = function(){ window.__downloadName = this.download || ''; }; true`);
+  await client.evaluate(`
+    window.__downloadName = '';
+    window.__downloadBlob = null;
+    window.__originalAnchorClick = HTMLAnchorElement.prototype.click;
+    window.__originalCreateObjectURL = URL.createObjectURL;
+    window.__originalRevokeObjectURL = URL.revokeObjectURL;
+    URL.createObjectURL = blob => { window.__downloadBlob = blob; return 'blob:peace-os-uat'; };
+    URL.revokeObjectURL = () => {};
+    HTMLAnchorElement.prototype.click = function(){ window.__downloadName = this.download || ''; };
+    true
+  `);
   await click(client, '#download-aar-button');
   checks.download_invocation = Boolean(await client.evaluate(`window.__downloadName.startsWith('peace-os-crisis-room-aar-') && window.__downloadName.endsWith('.json')`));
+  const aar = await client.evaluate(`window.__downloadBlob ? window.__downloadBlob.text().then(text => JSON.parse(text)) : null`);
+  checks.downloaded_aar_contract = Boolean(
+    aar
+    && aar.schema_version === '2.0'
+    && aar.product_version === '0.3.0-rc2'
+    && aar.application_version === '0.3.0-rc2'
+    && aar.decision_digest === aar.confirmed_digest
+    && /^[0-9a-f]{64}$/.test(aar.decision_digest || '')
+    && aar.human_final_confirmation === true
+    && aar.audit_chain_valid === true
+    && Array.isArray(aar.audit_events)
+    && aar.audit_events.length > 0
+    && Array.isArray(aar.limitations)
+    && aar.limitations.length >= 4
+  );
 
   await client.evaluate(`URL.createObjectURL = () => { throw new Error('download denied'); }; true`);
   await click(client, '#download-aar-button');
   checks.download_denial_fallback = Boolean(await client.evaluate(`document.body.textContent.includes('AAR download failed')`));
 
-  await client.evaluate(`window.__printed = false; window.print = () => { window.__printed = true; }; true`);
+  await client.evaluate(`
+    URL.createObjectURL = window.__originalCreateObjectURL;
+    URL.revokeObjectURL = window.__originalRevokeObjectURL;
+    HTMLAnchorElement.prototype.click = window.__originalAnchorClick;
+    window.__printed = false;
+    window.print = () => {
+      window.dispatchEvent(new Event('beforeprint'));
+      window.__printDetailsOpen = [...document.querySelectorAll('details')].every(item => item.open);
+      window.__printHasRequiredSections = ['Evidence analysis','Action plan','Score breakdown','Technical decision record'].every(text => document.body.innerText.includes(text));
+      window.__printed = true;
+      window.dispatchEvent(new Event('afterprint'));
+    };
+    true
+  `);
   await click(client, '#print-aar-button');
   checks.print_invocation = Boolean(await client.evaluate(`window.__printed === true`));
+  checks.print_sections_complete = Boolean(await client.evaluate(`window.__printDetailsOpen === true && window.__printHasRequiredSections === true`));
 
   return checks;
 }
@@ -420,7 +479,7 @@ async function exerciseResumeDeleteAndCorruption(client, baseUrl) {
   await client.evaluate(`localStorage.setItem('peace-os-crisis-room-session-v1', '{broken-json'); true`);
   await navigate(client, `${baseUrl}?uat=corrupt-${Date.now()}`);
   await waitHeading(client, 'Start a fictional session');
-  result.corrupted_session_recovery = Boolean(await client.evaluate(`document.body.textContent.includes('A damaged saved session was removed') && !localStorage.getItem('peace-os-crisis-room-session-v1')`));
+  result.corrupted_session_recovery = Boolean(await client.evaluate(`document.body.textContent.includes('saved session is damaged or unreadable') && Boolean(localStorage.getItem('peace-os-crisis-room-session-v1'))`));
   return result;
 }
 
@@ -467,6 +526,7 @@ function markdown(record) {
     '',
     `**URL:** \`${record.base_url}\`  `,
     `**Expected commit:** \`${record.expected_commit}\`  `,
+    `**Deployed commit metadata:** \`${record.deployment_metadata?.commit || 'MISSING'}\`  `,
     `**Browser:** \`${record.browser.version}\`  `,
     `**Platform:** \`${record.platform}\`  `,
     `**Generated:** \`${record.generated_at_utc}\`  `,
@@ -520,6 +580,8 @@ async function main() {
 
   let fatalError = null;
   try {
+    const deploymentMetadata = await waitForDeploymentMetadata(options.baseUrl, options.expectedCommit);
+    record.deployment_metadata = deploymentMetadata;
     const index = await loadJson(options.baseUrl, 'data/scenarios/index.json');
     const scenarios = {};
     for (const item of index.scenarios) scenarios[item.id] = await loadJson(options.baseUrl, `data/scenarios/${item.file}`);
