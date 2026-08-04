@@ -48,9 +48,9 @@
       "sha256": "488bd26ea345c3c1f18b70692f85ee42ab0ce7f10bb99473331822aedd636ce6"
     },
     {
-      "bytes": 4646,
+      "bytes": 4655,
       "path": ".github/workflows/pages.yml",
-      "sha256": "ca30ca227d0c596e5258adbd71bcc82163db2075109288e94dce3f2c10ddf9ce"
+      "sha256": "c549f9427518e73c5521c60f4b89172ef6b5333d24f37e608491bf39b30a9797"
     },
     {
       "bytes": 748,
@@ -525,7 +525,7 @@
     {
       "bytes": 4025,
       "path": "tests/test_rc2_deployment_contract.py",
-      "sha256": "a998d7cc6a916d3c0c22f699493d7a6c1126b655b39e711dad1fb57e57bde2f0"
+      "sha256": "8e6179013a94270a7c0d3a45e08b8c2bcdff449a08ced42fa1a835b13c56a7c8"
     },
     {
       "bytes": 3840,

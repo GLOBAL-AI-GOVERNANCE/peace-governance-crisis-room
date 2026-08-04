@@ -20,7 +20,7 @@ class Rc2DeploymentContractTests(unittest.TestCase):
         self.assertIn('EXPECTED_COMMIT: ${{ github.sha }}', self.workflow)
         self.assertIn('web/deployment.json', self.workflow)
         self.assertIn('tools/verify_deployed_uat.py', self.workflow)
-        self.assertIn('actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02', self.workflow)
+        self.assertIn('actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a', self.workflow)
 
     def test_deployed_uat_binds_metadata_and_checks_output(self):
         for marker in (
