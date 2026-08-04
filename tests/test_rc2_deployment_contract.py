@@ -48,6 +48,17 @@ class Rc2DeploymentContractTests(unittest.TestCase):
             'Browser profile cleanup deferred after verified browser shutdown',
         ):
             self.assertIn(marker, self.uat)
+    def test_deployed_uat_score_expectation_matches_timed_browser_journey(self):
+        for marker in (
+            'function expectedBrowserJourneyScore(scenario)',
+            'const timedEvents = scenario.evidence_cards.length + 2;',
+            'return 95 + timeliness;',
+            'const expectedScore = expectedBrowserJourneyScore(scenario);',
+            'expected browser-journey score',
+        ):
+            self.assertIn(marker, self.uat)
+        self.assertNotIn('expected score 100', self.uat)
+
     def test_deployed_uat_verifier_fails_closed(self):
         commit = 'a' * 40
         record = {

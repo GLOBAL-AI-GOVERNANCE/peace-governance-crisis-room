@@ -16,6 +16,26 @@ import { URL } from 'node:url';
 const sleep = ms => new Promise(resolvePromise => setTimeout(resolvePromise, ms));
 const now = () => new Date().toISOString();
 
+function expectedBrowserJourneyScore(scenario) {
+  // A complete browser journey consumes one time step per evidence card,
+  // plus the first confidence and release selections. All other ideal
+  // components total 95 points; timeliness contributes the remaining 0–5.
+  const timedEvents = scenario.evidence_cards.length + 2;
+  const remainingMinutes = Math.max(
+    0,
+    Number(scenario.decision_clock_minutes)
+      - (timedEvents * Number(scenario.time_step_minutes)),
+  );
+  const timeliness = remainingMinutes >= 10
+    ? 5
+    : remainingMinutes >= 5
+      ? 4
+      : remainingMinutes > 0
+        ? 2
+        : 0;
+  return 95 + timeliness;
+}
+
 function fail(message) {
   throw new Error(message);
 }
@@ -429,7 +449,10 @@ async function completeScenario(client, baseUrl, scenario, mode, { testInvalidat
     label: (document.querySelector('#main').innerText.match(/Bounded label:\\s*([^\\n]+)/) || [])[1] || '',
     digest: document.querySelector('.decision-digest code')?.textContent || ''
   }))()`);
-  if (result.score !== 100) fail(`${scenario.scenario_id}/${mode} expected score 100, received ${result.score}`);
+  const expectedScore = expectedBrowserJourneyScore(scenario);
+  if (result.score !== expectedScore) {
+    fail(`${scenario.scenario_id}/${mode} expected browser-journey score ${expectedScore}, received ${result.score}`);
+  }
   if (!result.label.includes('Strong doctrine alignment')) fail(`${scenario.scenario_id}/${mode} expected Excellent label, received ${result.label}`);
 
   return {
