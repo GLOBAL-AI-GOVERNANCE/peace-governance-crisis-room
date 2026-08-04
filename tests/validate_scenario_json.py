@@ -15,7 +15,7 @@ required_keys = {
     "release_options", "minimum_evidence_cards_required_before_scoring",
     "learning_objectives", "facilitator_notes", "debrief_prompts",
     "recommended_language_keys", "action_scores", "action_costs",
-    "action_budget", "recommended_actions",
+    "action_budget", "recommended_actions", "critical_safeguards",
 }
 required_meters = {
     "truth_integrity", "escalation_risk", "civilian_safety",
@@ -28,7 +28,7 @@ actions = {
 marks = {"flagged", "sensitive", "follow_up", "used"}
 approved_confidence = {"Confirmed", "Likely", "Possible", "Unverified"}
 approved_corroboration = {"Corroborated", "Partially corroborated", "Contradictory", "Uncorroborated"}
-approved_authenticity = {"No manipulation indicators", "Manipulation suspected", "Authenticity unclear", "Not applicable"}
+approved_authenticity = {"No indicators identified", "Manipulation suspected", "Authenticity unclear", "Not applicable"}
 allowed_states = {"Unread", "Reviewed", "Flagged", "Sensitive", "Contradictory", "Requires Follow-Up", "Partial"}
 
 release_language = json.loads(RELEASE_LANGUAGE_PATH.read_text(encoding="utf-8"))
@@ -49,6 +49,10 @@ for path in scenario_paths:
         raise SystemExit(f"{path.name}: action configuration must cover six actions")
     if not set(scenario["recommended_actions"]).issubset(actions):
         raise SystemExit(f"{path.name}: recommended actions must be configured")
+    if not set(scenario["critical_safeguards"]).issubset(actions):
+        raise SystemExit(f"{path.name}: critical safeguards must be configured")
+    if type(scenario["time_step_minutes"]) is not int or scenario["time_step_minutes"] < 1:
+        raise SystemExit(f"{path.name}: invalid time step")
     if sum(scenario['action_scores'][name] for name in scenario['recommended_actions']) != 15:
         raise SystemExit(f"{path.name}: recommended plan must reach 15 action points")
     for resource in ('time','authority'):

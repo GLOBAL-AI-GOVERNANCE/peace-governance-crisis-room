@@ -62,7 +62,7 @@ var action_labels: Dictionary = {
 const REQUIRED_REVIEWED_CARDS_DEFAULT := 0
 const CONFIDENCE_LEVELS := ["Confirmed", "Likely", "Possible", "Unverified"]
 const CORROBORATION_LEVELS := ["Corroborated", "Partially corroborated", "Contradictory", "Uncorroborated"]
-const AUTHENTICITY_LEVELS := ["No manipulation indicators", "Manipulation suspected", "Authenticity unclear", "Not applicable"]
+const AUTHENTICITY_LEVELS := ["No indicators identified", "Manipulation suspected", "Authenticity unclear", "Not applicable"]
 const SCENARIO_FILES := [
 	"res://data/scenarios/scenario_01_viral_collision_video.json",
 	"res://data/scenarios/scenario_02_deepfake_distress_call.json"
@@ -1082,7 +1082,10 @@ func credible_gate_passes() -> bool:
 	return evidence_marking_score() >= int(scoring_rubric.get("credible_gate", {}).get("minimum_evidence_marking", 10))
 
 func excellent_gate_passes() -> bool:
-	if evidence_marking_score() < int(scoring_rubric.get("excellent_gate", {}).get("minimum_evidence_marking", 18)):
+	var gate: Dictionary = scoring_rubric.get("excellent_gate", {})
+	if evidence_marking_score() < int(gate.get("minimum_evidence_marking", 18)):
+		return false
+	if actions_score() < int(gate.get("minimum_action_score", 0)):
 		return false
 	if not scenario.get("correct_confidence_range", []).has(confidence_choice):
 		return false
@@ -1090,18 +1093,21 @@ func excellent_gate_passes() -> bool:
 		return false
 	if not scenario.get("correct_authenticity_range", []).has(authenticity_choice):
 		return false
-	if release_score() != 15:
+	if release_score() != 15 or not action_plan_valid():
 		return false
-	return action_plan_valid()
+	for safeguard in scenario.get("critical_safeguards", []):
+		if not actions.get(safeguard, false):
+			return false
+	return true
 func performance_label() -> String:
 	var score := performance_score()
 	if score >= 90 and excellent_gate_passes():
-		return "Excellent governance discipline"
+		return "Strong doctrine alignment"
 	if score >= 75:
-		return "Credible crisis handling"
+		return "Bounded crisis handling"
 	if score >= 60:
-		return "Mixed outcome"
-	return "Governance failure risk"
+		return "Mixed doctrine alignment"
+	return "High governance risk"
 
 func show_consequence() -> void:
 	clear_ui("consequence")
@@ -1110,13 +1116,13 @@ func show_consequence() -> void:
 	var score := performance_score()
 	add_text("Overall performance: %s (%s / 100)" % [final_performance, score])
 	if score >= 90:
-		add_text("The complete scoring model classifies this as excellent governance discipline. Review the diagnostic meters and AAR for remaining limitations.")
+		add_text("The complete scoring model classifies this as strong doctrine alignment. Review the diagnostic meters and AAR for remaining limitations.")
 	elif score >= 75:
-		add_text("The complete scoring model classifies this as credible crisis handling with material improvement opportunities.")
+		add_text("The complete scoring model classifies this as bounded crisis handling with material improvement opportunities.")
 	elif score >= 60:
-		add_text("The complete scoring model classifies this as a mixed outcome. Several governance controls were incomplete or misapplied.")
+		add_text("The complete scoring model classifies this as mixed doctrine alignment. Several governance controls were incomplete or misapplied.")
 	else:
-		add_text("The complete scoring model identifies governance failure risk. Do not treat the decision as a responsible outcome.")
+		add_text("The complete scoring model identifies high governance risk. Do not treat the decision as a responsible outcome.")
 	var risks := unresolved_risks()
 	if risks.size() > 0:
 		add_subtitle("Critical Review Flags")

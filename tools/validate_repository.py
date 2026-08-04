@@ -6,6 +6,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 COMMANDS=[
+    [sys.executable,'tools/check_release_metadata.py'],
+    [sys.executable,'tools/check_scenario_consistency.py'],
     [sys.executable,'tests/validate_governance_policy.py'],
     [sys.executable,'tests/validate_scenario_json.py'],
     [sys.executable,'tests/validate_release_language.py'],

@@ -92,7 +92,7 @@ class ScoringContractTests(unittest.TestCase):
             )
             self.assertEqual(marking_score(scenario, no_skill.marks), 0)
             self.assertEqual(total_score(scenario, no_skill), 74)
-            self.assertEqual(performance_label(scenario, no_skill), "Mixed outcome")
+            self.assertEqual(performance_label(scenario, no_skill), "Mixed doctrine alignment")
 
     def test_random_marking_does_not_average_excellent(self) -> None:
         rng = random.Random(333)
@@ -144,7 +144,7 @@ class ScoringContractTests(unittest.TestCase):
                     actions=ideal.actions,
                     remaining_minutes=ideal.remaining_minutes,
                 )
-                excellent += performance_label(scenario, randomized) == "Excellent governance discipline"
+                excellent += performance_label(scenario, randomized) == "Strong doctrine alignment"
             self.assertLessEqual(excellent, 5)
 
     def test_displayed_score_and_label_cannot_contradict(self) -> None:
@@ -170,8 +170,8 @@ class ScoringContractTests(unittest.TestCase):
             score = total_score(scenario, blind)
             label = performance_label(scenario, blind)
             self.assertLess(score, 90)
-            self.assertNotEqual(label, "Excellent governance discipline")
-            self.assertEqual(score >= 90, label == "Excellent governance discipline")
+            self.assertNotEqual(label, "Strong doctrine alignment")
+            self.assertEqual(score >= 90, label == "Strong doctrine alignment")
 
     def test_clean_and_self_corrected_judgements_receive_same_final_score(self) -> None:
         for scenario in self.scenarios.values():

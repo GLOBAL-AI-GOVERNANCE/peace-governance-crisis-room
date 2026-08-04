@@ -366,7 +366,7 @@ async function completeScenario(client, baseUrl, scenario, mode, { testInvalidat
     digest: document.querySelector('.decision-digest code')?.textContent || ''
   }))()`);
   if (result.score !== 100) fail(`${scenario.scenario_id}/${mode} expected score 100, received ${result.score}`);
-  if (!result.label.includes('Excellent governance discipline')) fail(`${scenario.scenario_id}/${mode} expected Excellent label, received ${result.label}`);
+  if (!result.label.includes('Strong doctrine alignment')) fail(`${scenario.scenario_id}/${mode} expected Excellent label, received ${result.label}`);
 
   return {
     scenario_id: scenario.scenario_id,

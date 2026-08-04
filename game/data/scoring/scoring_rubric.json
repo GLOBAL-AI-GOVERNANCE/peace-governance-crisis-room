@@ -1,10 +1,12 @@
 {
   "credible_gate": {
-    "method_note": "Credible and Excellent labels require an evidence-marking floor; downstream posture cannot fully compensate for weak evidence analysis.",
+    "method_note": "Bounded and strong labels require an evidence-marking floor; downstream posture cannot fully compensate for weak evidence analysis.",
     "minimum_evidence_marking": 10
   },
   "excellent_gate": {
+    "minimum_action_score": 12,
     "minimum_evidence_marking": 18,
+    "require_critical_safeguards": true,
     "require_defensible_authenticity": true,
     "require_defensible_confidence": true,
     "require_defensible_corroboration": true,
@@ -43,22 +45,22 @@
       "label": "Truth Integrity"
     }
   },
-  "method_note": "Overall performance is a transparent doctrine-alignment score. Evidence marking uses category-balanced, chance-corrected skill. Credible and Excellent labels require evidence-analysis floors. Action plans must remain within explicit time and authority budgets. Diagnostic meters do not override the score headline. Public interfaces use five positively directed indicators; public pressure is displayed separately as scenario state.",
+  "method_note": "Overall performance is a transparent authored doctrine-alignment score. Evidence marking uses category-balanced, chance-corrected skill. Higher labels require evidence-analysis floors and proportionate action quality. Action plans must remain within explicit time and authority budgets. The result is not professional certification or real-world decision authority.",
   "performance_bands": [
     {
-      "label": "Excellent governance discipline",
+      "label": "Strong doctrine alignment",
       "min": 90
     },
     {
-      "label": "Credible crisis handling",
+      "label": "Bounded crisis handling",
       "min": 75
     },
     {
-      "label": "Mixed outcome",
+      "label": "Mixed doctrine alignment",
       "min": 60
     },
     {
-      "label": "Governance failure risk",
+      "label": "High governance risk",
       "min": 0
     }
   ],

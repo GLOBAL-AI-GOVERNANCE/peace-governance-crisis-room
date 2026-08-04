@@ -5,7 +5,7 @@
   "allow_live_data": false,
   "allow_telemetry": false,
   "allowed_authenticity_levels": [
-    "No manipulation indicators",
+    "No indicators identified",
     "Manipulation suspected",
     "Authenticity unclear",
     "Not applicable"
