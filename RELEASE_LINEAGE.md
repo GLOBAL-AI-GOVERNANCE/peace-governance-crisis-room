@@ -4,7 +4,7 @@
 
 | Release | Role | Status |
 |---|---|---|
-| `v0.3.0-rc2` | Primer closure and contract hardening | Current prerelease candidate |
+| `v0.3.0-rc2` | Primer closure and contract hardening | Published public prerelease; exact release-commit deployed UAT passed |
 | `v0.3.0-rc1` | Integrated web review candidate | Historical public prerelease |
 | `v0.2.2` | Source-readiness baseline under the historical title | Superseded; do not use for current training or assessment |
 | `v0.2.1` | Earlier public candidate with later-identified scoring defects | Superseded; do not use for training, assessment, or comparative scoring |
