@@ -413,9 +413,9 @@
       "sha256": "726a4aa4d4eadffbd1ae0136a99747330d7406a5d3b3bcaa3465de78493c6c9f"
     },
     {
-      "bytes": 29872,
+      "bytes": 29905,
       "path": "tests/deployed_browser_uat.mjs",
-      "sha256": "e5f6f25f01888e8ceac06c961a8ed2f7fbabd4151f07afa3570b22c0dc4c522a"
+      "sha256": "ea76063a8b45a6dbbf5951837ab4b18d7ad7a9d59a502f8de9abef7f15a2755d"
     },
     {
       "bytes": 1679,
@@ -523,9 +523,9 @@
       "sha256": "69640aae26ec0ec3960c76e5cd77b48b837b00c466e5e322ce91a7018a10f5f4"
     },
     {
-      "bytes": 2784,
+      "bytes": 2954,
       "path": "tests/test_rc2_deployment_contract.py",
-      "sha256": "95f000682cf5c0fc9d0d1e8817a3c78341aaf78f83f9d4a1e0596569f608e19f"
+      "sha256": "6da965e189f634d899b9342fa2235bfecbb758e83133657dbf32317821be841f"
     },
     {
       "bytes": 3840,

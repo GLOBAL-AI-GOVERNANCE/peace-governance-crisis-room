@@ -33,6 +33,10 @@ class Rc2DeploymentContractTests(unittest.TestCase):
         ):
             self.assertIn(marker, self.uat)
 
+    def test_browser_profile_cleanup_retries_transient_races(self):
+        self.assertIn('maxRetries: 10', self.uat)
+        self.assertIn('retryDelay: 250', self.uat)
+
     def test_deployed_uat_verifier_fails_closed(self):
         commit = 'a' * 40
         record = {

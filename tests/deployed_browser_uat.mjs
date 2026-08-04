@@ -152,7 +152,7 @@ async function launchBrowser(browserPath) {
         child.kill('SIGKILL');
         await Promise.race([new Promise(resolvePromise => child.once('exit', resolvePromise)), sleep(3000)]);
       }
-      rmSync(profile, { recursive: true, force: true });
+      rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 250 });
     },
   };
 }
