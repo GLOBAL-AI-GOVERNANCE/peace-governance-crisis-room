@@ -5,7 +5,7 @@ This source package does not include a verified Windows executable.
 The next public release gate is:
 
 ```text
-Peace_OS_Crisis_Room_v0.3.0-rc1_Windows.zip
+Peace_OS_Crisis_Room_v0.3.0-rc2_Windows.zip
 ```
 
 That release should be created only after:

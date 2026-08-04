@@ -5,7 +5,7 @@
   "allow_live_data": false,
   "allow_telemetry": false,
   "allowed_authenticity_levels": [
-    "No manipulation indicators",
+    "No indicators identified",
     "Manipulation suspected",
     "Authenticity unclear",
     "Not applicable"
@@ -28,7 +28,7 @@
   "decision_digest_algorithm": "sha256",
   "evidence_boundary": "This policy governs a fictional educational simulation. It does not authorize real-world publication, attribution, intelligence action, or autonomous execution.",
   "policy_id": "peace-os-crisis-room-baseline",
-  "policy_version": "0.3.0-rc1",
+  "policy_version": "0.3.0-rc2",
   "product_name": "Peace OS: Crisis Room",
   "public_delivery": "semantic_web_first",
   "require_action_budget": true,

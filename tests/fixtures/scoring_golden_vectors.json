@@ -63,7 +63,7 @@
           "release": 15,
           "timeliness": 5
         },
-        "label": "Excellent governance discipline",
+        "label": "Strong doctrine alignment",
         "score": 100
       },
       "id": "scenario_01_viral_collision_video-ideal",
@@ -130,7 +130,7 @@
           "release": 15,
           "timeliness": 5
         },
-        "label": "Mixed outcome",
+        "label": "Mixed doctrine alignment",
         "score": 74
       },
       "id": "scenario_01_viral_collision_video-blind",
@@ -146,7 +146,7 @@
           "request_original_media": true,
           "senior_review": true
         },
-        "authenticity": "No manipulation indicators",
+        "authenticity": "No indicators identified",
         "confidence": "Confirmed",
         "corroboration": "Corroborated",
         "human_confirmation": true,
@@ -197,7 +197,7 @@
           "release": 0,
           "timeliness": 5
         },
-        "label": "Governance failure risk",
+        "label": "High governance risk",
         "score": 50
       },
       "id": "scenario_01_viral_collision_video-overclaim",
@@ -226,7 +226,7 @@
           },
           "family_01": {
             "flagged": false,
-            "follow_up": false,
+            "follow_up": true,
             "sensitive": true,
             "used": false
           },
@@ -264,7 +264,7 @@
           "release": 15,
           "timeliness": 5
         },
-        "label": "Excellent governance discipline",
+        "label": "Strong doctrine alignment",
         "score": 100
       },
       "id": "scenario_02_deepfake_distress_call-ideal",
@@ -331,7 +331,7 @@
           "release": 15,
           "timeliness": 5
         },
-        "label": "Mixed outcome",
+        "label": "Mixed doctrine alignment",
         "score": 74
       },
       "id": "scenario_02_deepfake_distress_call-blind",
@@ -347,7 +347,7 @@
           "request_original_media": false,
           "senior_review": true
         },
-        "authenticity": "No manipulation indicators",
+        "authenticity": "No indicators identified",
         "confidence": "Confirmed",
         "corroboration": "Corroborated",
         "human_confirmation": true,
@@ -360,7 +360,7 @@
           },
           "family_01": {
             "flagged": false,
-            "follow_up": false,
+            "follow_up": true,
             "sensitive": true,
             "used": false
           },
@@ -398,7 +398,7 @@
           "release": 0,
           "timeliness": 5
         },
-        "label": "Governance failure risk",
+        "label": "High governance risk",
         "score": 50
       },
       "id": "scenario_02_deepfake_distress_call-overclaim",

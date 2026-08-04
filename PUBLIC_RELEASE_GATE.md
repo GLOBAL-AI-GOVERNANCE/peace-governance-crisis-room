@@ -1,21 +1,23 @@
 # Public Release Gate
 
-## `v0.3.0-rc1` prerelease scope
+## `v0.3.0-rc2` prerelease scope
 
 The approved public label is:
 
-> **Peace OS: Crisis Room v0.3.0-rc1: Integrated Web Review Candidate**
+> **Peace OS: Crisis Room v0.3.0-rc2: Primer Closure and Contract Hardening**
 
 A prerelease may be published after:
 
 - the exact reviewed candidate is integrated through a protected pull request;
 - required CI and repository protections permit merge;
 - GitHub Pages deploys from the validated final `main` commit;
-- deployed asset and browser-journey validation passes for that exact commit;
+- deployment metadata served from the Pages site identifies that exact commit;
+- deployed asset and browser-journey validation passes for that exact commit with no console errors or unexpected external requests;
 - source, provenance, release SBOM, checksums, and acceptance reports are generated against the same final commit;
-- downloaded release assets reverify.
+- downloaded release assets reverify;
+- repository, release, tag, Pages, and public profile surfaces agree on the RC2 prerelease state.
 
-Automated validation does not replace human user testing, accessibility conformance evaluation, professional learning validation, or platform-specific runtime evidence.
+For this RC2 prerelease, exact deployed automated UAT is the publication gate. Human keyboard, cross-browser, screen-reader, print/PDF, physical-device, and learning validation remain separate stable or post-publication evidence tracks and are not claimed by RC2.
 
 ## Web security boundary
 
@@ -26,6 +28,7 @@ The review client uses a restrictive meta CSP and JavaScript frame guard. GitHub
 The following remain HOLD until independently evidenced:
 
 - human keyboard-only and assistive-technology completion;
+- human cross-browser and print/PDF acceptance;
 - WCAG conformance;
 - real-device mobile and 200 percent zoom review;
 - independent subject-matter and measured human-learning validation;

@@ -8,6 +8,7 @@ FILES=[
  'scoring/scoring_rubric.json',
  'governance/policy.json',
  'release_language/controlled_language.json',
+ 'release/metadata.json',
 ]
 failures=[]
 for rel in FILES:

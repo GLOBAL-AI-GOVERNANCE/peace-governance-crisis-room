@@ -97,8 +97,25 @@ code { overflow-wrap: anywhere; }
 }
 
 @media print {
-  header, .boundary, nav, .actions, footer { display: none; }
+  header, .boundary, body > nav, .actions, footer { display: none; }
   details { display: block; }
   details > * { display: block; }
   .panel { box-shadow: none; border: 0; }
+}
+
+.release-status { display: inline-block; margin: .5rem 0 0; padding: .4rem .65rem; border: 1px solid var(--border); border-radius: .4rem; background: var(--panel); color: var(--muted); }
+.release-status strong { color: var(--ink); }
+.transparency { display: flex; flex-wrap: wrap; gap: .5rem 1rem; padding: 0; }
+.transparency a { color: var(--accent); }
+.noscript { margin-top: 1rem; }
+.startup-panel { min-height: 10rem; }
+
+@media print {
+  body { background: white; }
+  main { max-width: none; padding: 0; }
+  .panel { break-inside: auto; }
+  .diagnostic-card, .indicator { break-inside: avoid; }
+  .technical-details, .technical-details[open] { display: block; }
+  .technical-details > * { display: block; }
+  .facilitator-banner, .status-message, .warning { print-color-adjust: exact; }
 }

@@ -1,4 +1,4 @@
-"""Reference model for Peace OS: Crisis Room v0.3.0-rc1.
+"""Reference model for Peace OS: Crisis Room v0.3.0-rc2.
 
 This model mirrors the data-driven source scoring contract. It does not execute
 Godot and must not be represented as runtime validation.
@@ -23,7 +23,7 @@ CORROBORATION_LEVELS = (
     "Uncorroborated",
 )
 AUTHENTICITY_LEVELS = (
-    "No manipulation indicators",
+    "No indicators identified",
     "Manipulation suspected",
     "Authenticity unclear",
     "Not applicable",
@@ -285,27 +285,31 @@ def credible_gate_passes(scenario: Mapping[str, Any], decision: Decision) -> boo
 
 def excellent_gate_passes(scenario: Mapping[str, Any], decision: Decision) -> bool:
     rubric = load_scoring_rubric()
-    minimum = int(rubric.get("excellent_gate", {}).get("minimum_evidence_marking", 18))
+    gate = rubric.get("excellent_gate", {})
+    minimum = int(gate.get("minimum_evidence_marking", 18))
+    minimum_actions = int(gate.get("minimum_action_score", 0))
     breakdown = score_breakdown(scenario, decision)
     return (
         breakdown["evidence_marking"] >= minimum
+        and breakdown["actions"] >= minimum_actions
         and decision.final_confidence in scenario["correct_confidence_range"]
         and decision.final_corroboration in scenario["correct_corroboration_range"]
         and decision.final_authenticity in scenario["correct_authenticity_range"]
         and release_score(scenario, decision.release_id) == 15
         and action_plan_valid(scenario, decision.actions)
+        and all(bool(decision.actions.get(name, False)) for name in scenario.get("critical_safeguards", []))
     )
 
 
 def performance_label(scenario: Mapping[str, Any], decision: Decision) -> str:
     score = total_score(scenario, decision)
     if score >= 90 and excellent_gate_passes(scenario, decision):
-        return "Excellent governance discipline"
+        return "Strong doctrine alignment"
     if score >= 75:
-        return "Credible crisis handling"
+        return "Bounded crisis handling"
     if score >= 60:
-        return "Mixed outcome"
-    return "Governance failure risk"
+        return "Mixed doctrine alignment"
+    return "High governance risk"
 
 
 def ideal_decision(scenario: Mapping[str, Any]) -> Decision:

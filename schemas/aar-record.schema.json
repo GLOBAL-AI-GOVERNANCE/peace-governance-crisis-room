@@ -1,79 +1,47 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "additionalProperties": true,
-  "properties": {
-    "action_budget": {
-      "type": "object"
-    },
-    "action_costs": {
-      "type": "object"
-    },
-    "audit_chain": {
-      "minItems": 1,
-      "type": "array"
-    },
-    "audit_chain_valid": {
-      "const": true
-    },
-    "audit_limit": {
-      "minLength": 80,
-      "type": "string"
-    },
-    "authenticity_choice": {
-      "type": "string"
-    },
-    "confirmed_decision_digest": {
-      "pattern": "^[0-9a-f]{64}$",
-      "type": "string"
-    },
-    "corroboration_choice": {
-      "type": "string"
-    },
-    "decision_digest": {
-      "pattern": "^[0-9a-f]{64}$",
-      "type": "string"
-    },
-    "decision_record": {
-      "type": "object"
-    },
-    "human_final_confirmation": {
-      "const": true
-    },
-    "policy_version": {
-      "type": "string"
-    },
-    "scenario_id": {
-      "type": "string"
-    },
-    "score_breakdown": {
-      "type": "object"
-    },
-    "session_mode": {
-      "enum": [
-        "practice",
-        "assessment",
-        "facilitator"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "scenario_id",
-    "policy_version",
-    "session_mode",
-    "score_breakdown",
-    "decision_record",
-    "decision_digest",
-    "confirmed_decision_digest",
-    "audit_chain",
-    "audit_chain_valid",
-    "human_final_confirmation",
-    "corroboration_choice",
-    "authenticity_choice",
-    "action_budget",
-    "action_costs",
-    "audit_limit"
-  ],
+  "$id": "https://global-ai-governance.github.io/peace-os-crisis-room/schemas/aar-record.schema.json",
   "title": "Peace OS: Crisis Room After-Action Record",
-  "type": "object"
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "record_id", "product_name", "product_version", "application_version",
+    "policy_version", "scoring_version", "scenario_id", "scenario_version", "mode", "session_id",
+    "started_at", "committed_at", "decision_record", "score", "score_breakdown", "performance_label",
+    "governance_indicators", "evidence_diagnostics", "decision_digest", "confirmed_digest",
+    "digest_algorithm", "canonicalization_version", "human_final_confirmation", "audit_events",
+    "audit_chain_valid", "audit_limit", "action_budget", "action_costs", "limitations"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "record_id": {"type": "string", "minLength": 12},
+    "product_name": {"const": "Peace OS: Crisis Room"},
+    "product_version": {"const": "0.3.0-rc2"},
+    "application_version": {"const": "0.3.0-rc2"},
+    "policy_version": {"const": "0.3.0-rc2"},
+    "scoring_version": {"const": "0.3.0-rc2"},
+    "scenario_id": {"type": "string", "minLength": 1},
+    "scenario_version": {"const": "0.3.0-rc2"},
+    "mode": {"enum": ["practice", "assessment", "facilitator"]},
+    "session_id": {"type": "string", "minLength": 8},
+    "started_at": {"type": "string", "format": "date-time"},
+    "committed_at": {"type": "string", "format": "date-time"},
+    "decision_record": {"type": "object"},
+    "score": {"type": "integer", "minimum": 0, "maximum": 100},
+    "score_breakdown": {"type": "object"},
+    "performance_label": {"type": "string", "minLength": 1},
+    "governance_indicators": {"type": "object"},
+    "evidence_diagnostics": {"type": "object"},
+    "decision_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "confirmed_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "digest_algorithm": {"const": "sha256"},
+    "canonicalization_version": {"const": "1.0"},
+    "human_final_confirmation": {"const": true},
+    "audit_events": {"type": "array", "minItems": 1, "items": {"$ref": "audit-event.schema.json"}},
+    "audit_chain_valid": {"const": true},
+    "audit_limit": {"type": "string", "minLength": 80},
+    "action_budget": {"type": "object", "required": ["time", "authority"]},
+    "action_costs": {"type": "object", "required": ["time", "authority"]},
+    "limitations": {"type": "array", "minItems": 4, "items": {"type": "string"}}
+  }
 }

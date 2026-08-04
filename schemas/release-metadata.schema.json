@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-ai-governance.github.io/peace-os-crisis-room/schemas/release-metadata.schema.json",
+  "title": "Peace OS Canonical Release Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "product_name", "product_version", "application_version", "policy_version", "scoring_version", "scenario_versions", "session_schema_version", "aar_schema_version", "audit_event_schema_version", "canonicalization_version", "digest_algorithm", "release_status", "release_channel", "canonical_repository", "pages_url", "simulation_only"]
+}

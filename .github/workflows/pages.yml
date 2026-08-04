@@ -23,8 +23,10 @@ jobs:
       matrix:
         python-version: ["3.12"]
     steps:
-      - name: Checkout
+      - name: Checkout exact workflow commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
@@ -40,13 +42,20 @@ jobs:
           node --test tests/js/*.test.mjs
           node tests/js/web-static-check.mjs
           python tests/http_asset_smoke.py
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: validate
     steps:
-      - name: Checkout
+      - name: Checkout exact workflow commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
       - name: Set up Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
@@ -55,10 +64,19 @@ jobs:
         run: |
           node --test tests/js/*.test.mjs
           node tests/js/web-static-check.mjs
+      - name: Bind Pages artifact to exact commit
+        run: |
+          python tools/write_deployment_metadata.py \
+            --output web/deployment.json \
+            --commit "${GITHUB_SHA}" \
+            --repository "${GITHUB_REPOSITORY}" \
+            --run-id "${GITHUB_RUN_ID}" \
+            --run-attempt "${GITHUB_RUN_ATTEMPT}"
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
           path: web
+
   deploy:
     environment:
       name: github-pages
@@ -66,7 +84,56 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128
+
+  deployed-browser-uat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: deploy
+    steps:
+      - name: Checkout exact deployed commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: "22"
+      - name: Run exact deployed browser journeys
+        env:
+          DEPLOYED_URL: ${{ needs.deploy.outputs.page_url }}
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          mkdir -p dist-deployed-uat
+          node tests/deployed_browser_uat.mjs \
+            --base-url "${DEPLOYED_URL}" \
+            --expected-commit "${EXPECTED_COMMIT}" \
+            --output-json dist-deployed-uat/peace-os-crisis-room-v0.3.0-rc2-deployed-uat.json \
+            --output-md dist-deployed-uat/peace-os-crisis-room-v0.3.0-rc2-deployed-uat.md
+          python tools/verify_deployed_uat.py \
+            --input dist-deployed-uat/peace-os-crisis-room-v0.3.0-rc2-deployed-uat.json \
+            --expected-commit "${EXPECTED_COMMIT}" \
+            --expected-url "${DEPLOYED_URL}"
+          (
+            cd dist-deployed-uat
+            sha256sum \
+              peace-os-crisis-room-v0.3.0-rc2-deployed-uat.json \
+              peace-os-crisis-room-v0.3.0-rc2-deployed-uat.md \
+              > peace-os-crisis-room-v0.3.0-rc2-deployed-uat-SHA256SUMS.txt
+          )
+      - name: Publish exact deployed UAT evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: peace-os-v0.3.0-rc2-deployed-uat-${{ github.sha }}
+          path: dist-deployed-uat
+          if-no-files-found: error
+          retention-days: 90

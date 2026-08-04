@@ -51,6 +51,11 @@
     "Contradictory",
     "Uncorroborated"
   ],
+  "critical_safeguards": [
+    "protect_civilians",
+    "info_integrity_review",
+    "senior_review"
+  ],
   "debrief_prompts": [
     "What evidence did the player treat as stronger than it really was?",
     "Did the player protect civilians before release?",
@@ -68,8 +73,11 @@
         "used": true
       },
       "facilitator_indicators": [
-        "Flagged"
+        "Flagged",
+        "Requires Follow-Up",
+        "Partial"
       ],
+      "handling_sensitivity": "standard",
       "id": "video_01",
       "reliability": "partial",
       "tags": [
@@ -88,8 +96,10 @@
         "used": true
       },
       "facilitator_indicators": [
+        "Requires Follow-Up",
         "Partial"
       ],
+      "handling_sensitivity": "standard",
       "id": "ais_01",
       "reliability": "partial",
       "tags": [
@@ -111,8 +121,9 @@
         "Sensitive",
         "Requires Follow-Up"
       ],
+      "handling_sensitivity": "high",
       "id": "witness_01",
-      "reliability": "sensitive",
+      "reliability": "limited",
       "tags": [
         "human_report",
         "civilian_risk",
@@ -129,8 +140,11 @@
         "used": true
       },
       "facilitator_indicators": [
-        "Requires Follow-Up"
+        "Flagged",
+        "Requires Follow-Up",
+        "Contradictory"
       ],
+      "handling_sensitivity": "standard",
       "id": "translation_01",
       "reliability": "disputed",
       "tags": [
@@ -150,6 +164,7 @@
       "facilitator_indicators": [
         "Flagged"
       ],
+      "handling_sensitivity": "standard",
       "id": "bot_01",
       "reliability": "unverified",
       "tags": [
@@ -242,7 +257,7 @@
   "time_step_minutes": 5,
   "title": "Scenario 01: The Viral Collision Video",
   "unsafe_authenticity_choices": [
-    "No manipulation indicators"
+    "No indicators identified"
   ],
   "unsafe_choices": [
     "Confirmed"
@@ -250,5 +265,5 @@
   "unsafe_corroboration_choices": [
     "Corroborated"
   ],
-  "version": "0.3.0-rc1"
+  "version": "0.3.0-rc2"
 }

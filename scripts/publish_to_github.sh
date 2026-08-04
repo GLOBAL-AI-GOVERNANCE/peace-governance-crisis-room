@@ -81,8 +81,8 @@ if [[ -n "$EXPECTED_SOURCE_ZIP_SHA256" ]]; then
   SOURCE_ZIP_CANDIDATE="${SOURCE_ZIP_PATH:-}"
   if [[ -z "$SOURCE_ZIP_CANDIDATE" ]]; then
     for candidate in \
-      "$SOURCE_ROOT/../peace-os-crisis-room-v0.3.0-rc1-source.zip" \
-      "$SOURCE_ROOT/../../SOURCE/peace-os-crisis-room-v0.3.0-rc1-source.zip"; do
+      "$SOURCE_ROOT/../peace-os-crisis-room-v0.3.0-rc2-source.zip" \
+      "$SOURCE_ROOT/../../SOURCE/peace-os-crisis-room-v0.3.0-rc2-source.zip"; do
       if [[ -f "$candidate" ]]; then
         SOURCE_ZIP_CANDIDATE="$candidate"
         break
@@ -201,7 +201,7 @@ find . -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete
 "$PYTHON" tools/validate_repository.py
 "$PYTHON" tools/generate_manifest.py --check
 "$PYTHON" tools/run_extended_vv.py \
-  --output "$REVIEW_ROOT/extended-vv-results-v0.3.0-rc1.json"
+  --output "$REVIEW_ROOT/extended-vv-results-v0.3.0-rc2.json"
 node --test tests/js/*.test.mjs
 echo 'HOLD: browser runtime is not a branch-upload gate; complete deployed Pages UAT after merge.'
 
@@ -254,7 +254,7 @@ cat "$REVIEW_ROOT/integration-review.stat.txt"
 printf '\nWORKING: staged name/status report\n'
 cat "$REVIEW_ROOT/integration-review.name-status.txt"
 
-git commit -m "feat: integrate Peace OS web review candidate v0.3.0-rc1"
+git commit -m "feat: integrate Peace OS web review candidate v0.3.0-rc2"
 LOCAL_COMMIT="$(git rev-parse HEAD)"
 printf '%s\n' "$LOCAL_COMMIT" > "$REVIEW_ROOT/local-review-commit.txt"
 printf 'PASS: local review branch prepared at %s\n' "$LOCAL_COMMIT"

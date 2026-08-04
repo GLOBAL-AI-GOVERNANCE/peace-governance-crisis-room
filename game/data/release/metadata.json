@@ -1,0 +1,22 @@
+{
+  "aar_schema_version": "2.0",
+  "application_version": "0.3.0-rc2",
+  "audit_event_schema_version": "1.0",
+  "canonical_repository": "GLOBAL-AI-GOVERNANCE/peace-os-crisis-room",
+  "canonicalization_version": "1.0",
+  "digest_algorithm": "sha256",
+  "pages_url": "https://global-ai-governance.github.io/peace-os-crisis-room/",
+  "policy_version": "0.3.0-rc2",
+  "product_name": "Peace OS: Crisis Room",
+  "product_version": "0.3.0-rc2",
+  "release_channel": "prerelease",
+  "release_status": "Public browser review candidate",
+  "scenario_versions": {
+    "scenario_01_viral_collision_video": "0.3.0-rc2",
+    "scenario_02_deepfake_distress_call": "0.3.0-rc2"
+  },
+  "schema_version": "1.0",
+  "scoring_version": "0.3.0-rc2",
+  "session_schema_version": "2.0",
+  "simulation_only": true
+}
