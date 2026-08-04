@@ -19,6 +19,16 @@ A prerelease may be published after:
 
 For this RC2 prerelease, exact deployed automated UAT is the publication gate. Human keyboard, cross-browser, screen-reader, print/PDF, physical-device, and learning validation remain separate stable or post-publication evidence tracks and are not claimed by RC2.
 
+## RC2 publication record
+
+- Public prerelease: [`v0.3.0-rc2`](https://github.com/GLOBAL-AI-GOVERNANCE/peace-os-crisis-room/releases/tag/v0.3.0-rc2)
+- Exact release commit: `aa6d8f75ce755fd143a4aa457eadf91b54604bd5`
+- Exact deployed Pages workflow: [`30897461431`](https://github.com/GLOBAL-AI-GOVERNANCE/peace-os-crisis-room/actions/runs/30897461431) — **PASS**
+- Commit-bound deployed-UAT artifact: `peace-os-v0.3.0-rc2-deployed-uat-aa6d8f75ce755fd143a4aa457eadf91b54604bd5`
+- Artifact digest: `sha256:32c3ad4b4176816e310d1ea4694b6556fa255e6408e56e16b4f572fcd4952e4c`
+- Ten custom release and evidence assets were downloaded and independently reverified after publication.
+- Post-release documentation or workflow maintenance may advance `main` and Pages without moving the RC2 tag or replacing the verified release assets.
+
 ## Web security boundary
 
 The review client uses a restrictive meta CSP and JavaScript frame guard. GitHub Pages does not provide repository-controlled arbitrary response headers. Before a stable security claim, either use hosting that can send `Content-Security-Policy: frame-ancestors 'none'` or explicitly accept and document the reduced anti-framing boundary.
