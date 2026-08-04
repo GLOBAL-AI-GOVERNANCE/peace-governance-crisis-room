@@ -76,6 +76,16 @@ export function validateSession(candidate, scenarios, metadata, actionIds) {
   if (candidate.release_id && (!scenario || !scenario.release_options.some(option => option.id === candidate.release_id))) return fail('Saved release posture is invalid.');
 
   if (!exactKeys(candidate.actions, actionIds) || Object.values(candidate.actions).some(value => typeof value !== 'boolean')) return fail('Saved action selection is invalid.');
+  if (scenario) {
+    const costs = { time: 0, authority: 0 };
+    for (const [name, selected] of Object.entries(candidate.actions)) {
+      if (selected) {
+        costs.time += Number(scenario.action_costs[name]?.time ?? 0);
+        costs.authority += Number(scenario.action_costs[name]?.authority ?? 0);
+      }
+    }
+    if (costs.time > Number(scenario.action_budget.time) || costs.authority > Number(scenario.action_budget.authority)) return fail('Saved action selection exceeds scenario capacity.');
+  }
   const maximumMinutes = scenario?.decision_clock_minutes ?? 30;
   if (!Number.isInteger(candidate.remaining_minutes) || candidate.remaining_minutes < 0 || candidate.remaining_minutes > maximumMinutes) return fail('Saved time is outside scenario bounds.');
   if (!Number.isInteger(candidate.public_pressure) || candidate.public_pressure < 0 || candidate.public_pressure > 100) return fail('Saved public pressure is outside bounds.');

@@ -10,10 +10,10 @@ import {
   sha256Hex,
   computeOutcomeIndicators,
 } from './scoring.js';
+import { recordAuditEvent, hashAuditEvents, verifyAuditChain } from './audit.js';
+import { assertAarRecord, buildAarRecord } from './aar.js';
+import { AUTHENTICITY_LEVELS, CONFIDENCE_LEVELS, CORROBORATION_LEVELS, assessSavedSession, createSession } from './session.js';
 
-const PRODUCT_NAME = 'Peace OS: Crisis Room';
-const APP_VERSION = '0.3.0-rc1';
-const SESSION_SCHEMA = '1.0';
 const STORAGE_KEY = 'peace-os-crisis-room-session-v1';
 
 const $ = selector => document.querySelector(selector);
@@ -57,6 +57,8 @@ const progressMap = {
   result: 7,
 };
 
+let metadata;
+let policy;
 let rubric;
 let language;
 let scenarios = {};
@@ -70,28 +72,7 @@ let visibleActionMessage = '';
 let copyFallbackText = '';
 let deleteReturnScreen = 'start';
 
-const blank = () => ({
-  session_schema_version: SESSION_SCHEMA,
-  app_version: APP_VERSION,
-  screen: 'start',
-  mode: '',
-  scenario_id: '',
-  card_id: '',
-  reviewed: [],
-  marks: {},
-  confidence: '',
-  corroboration: '',
-  authenticity: '',
-  release_id: '',
-  actions: Object.fromEntries(Object.keys(actionLabels).map(key => [key, false])),
-  remaining_minutes: 30,
-  public_pressure: 0,
-  timed: { evidence: [], confidence: false, release: false },
-  human_confirmation: false,
-  confirmed_digest: '',
-  committed: false,
-  result: null,
-});
+const blank = () => createSession(metadata, Object.keys(actionLabels));
 
 function setStorageUnavailable(error) {
   storageAvailable = false;
@@ -151,13 +132,8 @@ function loadSaved() {
   try {
     return JSON.parse(raw);
   } catch {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-      visibleActionMessage = 'A damaged saved session was removed. Start a new session or choose another scenario.';
-    } catch (error) {
-      setStorageUnavailable(error);
-    }
-    return null;
+    visibleActionMessage = 'The saved session is damaged or unreadable. It was retained and will not be reused. Delete it explicitly or start a new session.';
+    return { __parse_error__: true };
   }
 }
 
@@ -194,17 +170,12 @@ function facilitatorBanner() {
   return '<div class="facilitator-banner" role="note"><strong>FACILITATOR MODE</strong>  -  answer-revealing teaching context is visible. Do not use this mode for blind assessment.</div>';
 }
 
-function savedStateValid(candidate) {
-  return Boolean(
-    candidate &&
-    typeof candidate === 'object' &&
-    candidate.session_schema_version === SESSION_SCHEMA &&
-    candidate.app_version === APP_VERSION &&
-    typeof candidate.screen === 'string' &&
-    Array.isArray(candidate.reviewed) &&
-    candidate.marks && typeof candidate.marks === 'object' &&
-    candidate.actions && typeof candidate.actions === 'object'
-  );
+function recordEvent(eventType, data = {}) {
+  recordAuditEvent(state.audit_events, eventType, data);
+}
+
+function webCryptoAvailable() {
+  return Boolean(globalThis.crypto?.subtle && globalThis.TextEncoder);
 }
 
 function announce(text) {
@@ -259,7 +230,7 @@ function consumeTime(kind, id = '') {
     if (state.timed[kind]) return;
     state.timed[kind] = true;
   }
-  state.remaining_minutes = Math.max(0, state.remaining_minutes - 2);
+  state.remaining_minutes = Math.max(0, state.remaining_minutes - Number(currentScenario.time_step_minutes));
   state.public_pressure = Math.min(100, state.public_pressure + 3);
 }
 
@@ -267,6 +238,7 @@ function invalidate(reason) {
   if (state.human_confirmation || state.confirmed_digest) {
     state.human_confirmation = false;
     state.confirmed_digest = '';
+    recordEvent('confirmation_invalidated', { reason });
     announce(`Confirmation invalidated: ${reason}`);
   }
 }
@@ -283,18 +255,33 @@ async function decisionDigest() {
   return sha256Hex(canonicalJson(decisionInput()));
 }
 
-function decisionInput() {
+function decisionInputFor(session) {
   return {
-    scenario_id: state.scenario_id,
-    reviewed: [...state.reviewed].sort(),
-    marks: state.marks,
-    confidence: state.confidence,
-    corroboration: state.corroboration,
-    authenticity: state.authenticity,
-    release_id: state.release_id,
-    actions: state.actions,
-    remaining_minutes: state.remaining_minutes,
+    scenario_id: session.scenario_id,
+    scenario_version: session.scenario_version,
+    mode: session.mode,
+    reviewed: [...session.reviewed].sort(),
+    marks: session.marks,
+    confidence: session.confidence,
+    corroboration: session.corroboration,
+    authenticity: session.authenticity,
+    release_id: session.release_id,
+    actions: session.actions,
+    remaining_minutes: session.remaining_minutes,
   };
+}
+
+function decisionInput() {
+  return decisionInputFor(state);
+}
+
+async function savedResultValid(candidate) {
+  if (!candidate.committed) return true;
+  if (!webCryptoAvailable()) return false;
+  const digest = await sha256Hex(canonicalJson(decisionInputFor(candidate)));
+  return digest === candidate.confirmed_digest
+    && digest === candidate.result?.decision_digest
+    && candidate.result?.confirmed_digest === digest;
 }
 
 function decisionForScore() {
@@ -334,19 +321,19 @@ function render() {
     confidence: () => categorical(
       'Confidence',
       'confidence',
-      ['Confirmed', 'Likely', 'Possible', 'Unverified'],
+      CONFIDENCE_LEVELS,
       'How strongly does the available evidence support the claim?'
     ),
     corroboration: () => categorical(
       'Corroboration',
       'corroboration',
-      ['Corroborated', 'Partially corroborated', 'Contradictory', 'Uncorroborated'],
+      CORROBORATION_LEVELS,
       'Do independent sources support the claim?'
     ),
     authenticity: () => categorical(
       'Authenticity',
       'authenticity',
-      ['No manipulation indicators', 'Manipulation suspected', 'Authenticity unclear', 'Not applicable'],
+      AUTHENTICITY_LEVELS,
       'Is the item genuine, altered, synthetic, or unresolved?'
     ),
     release,
@@ -462,7 +449,7 @@ function card() {
   const marks = state.marks[evidenceCard.id] || Object.fromEntries(MARK_NAMES.map(key => [key, false]));
   const metadata = state.mode === 'assessment'
     ? ''
-    : `<p><strong>Practice metadata:</strong> ${esc(evidenceCard.tags.join(', '))}. Source status: ${esc(evidenceCard.reliability)}.</p>`;
+    : `<p><strong>Practice metadata:</strong> ${esc(evidenceCard.tags.join(', '))}. Source status: ${esc(evidenceCard.reliability)}. Handling sensitivity: ${esc(evidenceCard.handling_sensitivity || 'standard')}.</p>`;
   const controls = [
     ['flagged', 'Flag for contradiction or manipulation risk'],
     ['sensitive', 'Sensitive civilian or identity concern'],
@@ -595,15 +582,15 @@ function diagnosticCards(diagnostics) {
 
 function whatWentWell(resultRecord) {
   const items = ['All evidence cards were reviewed before scoring.'];
-  if (resultRecord.breakdown.evidence_marking >= 18) items.push('Evidence markings showed strong discrimination between supported and unsupported risks.');
-  else if (resultRecord.breakdown.evidence_marking >= 10) items.push('Evidence markings met the minimum credible-analysis floor.');
-  if (resultRecord.breakdown.release === 15) items.push('The selected public posture disclosed uncertainty without premature attribution.');
-  if (resultRecord.breakdown.actions >= 12) items.push('The governance plan used the available time and authority effectively.');
+  if (resultRecord.score_breakdown.evidence_marking >= 18) items.push('Evidence markings showed strong discrimination between supported and unsupported risks.');
+  else if (resultRecord.score_breakdown.evidence_marking >= 10) items.push('Evidence markings met the minimum credible-analysis floor.');
+  if (resultRecord.score_breakdown.release === 15) items.push('The selected public posture disclosed uncertainty without premature attribution.');
+  if (resultRecord.score_breakdown.actions >= 12) items.push('The governance plan used the available time and authority effectively.');
   return items.map(item => `<li>${esc(item)}</li>`).join('');
 }
 
 function recommendedCorrection(resultRecord, currentScenario) {
-  if (resultRecord.label === 'Excellent governance discipline') {
+  if (resultRecord.performance_label === 'Strong doctrine alignment') {
     return 'Preserve the reasoning trace, identify the remaining uncertainties, and compare the decision with an independent reviewer.';
   }
   const actionsList = currentScenario.recommended_actions.map(key => actionLabels[key]).join('; ');
@@ -613,14 +600,14 @@ function recommendedCorrection(resultRecord, currentScenario) {
 function result() {
   const record = state.result;
   const currentScenario = scenario();
-  const cost = actionCosts(currentScenario, record.decision.actions);
-  const releaseChoice = currentScenario.release_options.find(option => option.id === record.decision.release_id);
-  const selectedActions = Object.entries(record.decision.actions).filter(([, selected]) => selected).map(([key]) => actionLabels[key]);
-  const componentRows = Object.entries(record.breakdown).map(([key, value]) => `<div><dt>${esc(key.replaceAll('_', ' '))}</dt><dd>${value}</dd></div>`).join('');
+  const cost = actionCosts(currentScenario, record.decision_record.actions);
+  const releaseChoice = currentScenario.release_options.find(option => option.id === record.decision_record.release_id);
+  const selectedActions = Object.entries(record.decision_record.actions).filter(([, selected]) => selected).map(([key]) => actionLabels[key]);
+  const componentRows = Object.entries(record.score_breakdown).map(([key, value]) => `<div><dt>${esc(key.replaceAll('_', ' '))}</dt><dd>${value}</dd></div>`).join('');
 
   panel('After-action review', `
     <p class="success">Decision committed. Results were not available before commitment.</p>
-    <p><strong>Score:</strong> ${record.score}/100<br><strong>Bounded label:</strong> ${esc(record.label)}</p>
+    <p><strong>Score:</strong> ${record.score}/100<br><strong>Bounded label:</strong> ${esc(record.performance_label)}</p>
 
     <h3>What went well</h3>
     <ul>${whatWentWell(record)}</ul>
@@ -629,26 +616,26 @@ function result() {
     <p>The result distinguishes supported findings, missed risks, and unsupported markings. These are authored learning metrics, not professional certification results.</p>
     <details class="technical-details">
       <summary>View evidence diagnostics</summary>
-      <div class="diagnostic-grid">${diagnosticCards(record.diagnostics)}</div>
+      <div class="diagnostic-grid">${diagnosticCards(record.evidence_diagnostics)}</div>
     </details>
 
     <h3>Evidence judgment and public posture</h3>
     <dl>
-      <dt>Confidence</dt><dd>${esc(record.decision.confidence)}</dd>
-      <dt>Corroboration</dt><dd>${esc(record.decision.corroboration)}</dd>
-      <dt>Authenticity</dt><dd>${esc(record.decision.authenticity)}</dd>
+      <dt>Confidence</dt><dd>${esc(record.decision_record.confidence)}</dd>
+      <dt>Corroboration</dt><dd>${esc(record.decision_record.corroboration)}</dd>
+      <dt>Authenticity</dt><dd>${esc(record.decision_record.authenticity)}</dd>
       <dt>Public release posture</dt><dd>${esc(releaseChoice?.label || '')}</dd>
     </dl>
 
     <h3>Civilian protection and information integrity</h3>
     <div class="indicator-list">
-      ${indicator('Evidence Integrity', record.indicators.evidence_integrity, 'Higher indicates better preservation of evidence quality and uncertainty boundaries.')}
-      ${indicator('Escalation Control', record.indicators.escalation_control, 'Higher indicates stronger de-escalation and reduced avoidable escalation risk.')}
-      ${indicator('Civilian Protection', record.indicators.civilian_protection, 'Higher indicates stronger protection of civilians and sensitive identities.')}
-      ${indicator('Institutional Credibility', record.indicators.institutional_credibility, 'Higher indicates stronger alignment between claims, authority, and evidence.')}
-      ${indicator('Decision Timeliness', record.indicators.decision_timeliness, 'Higher indicates more time remained when the bounded decision was committed.')}
+      ${indicator('Evidence Integrity', record.governance_indicators.evidence_integrity, 'Higher indicates better preservation of evidence quality and uncertainty boundaries.')}
+      ${indicator('Escalation Control', record.governance_indicators.escalation_control, 'Higher indicates stronger de-escalation and reduced avoidable escalation risk.')}
+      ${indicator('Civilian Protection', record.governance_indicators.civilian_protection, 'Higher indicates stronger protection of civilians and sensitive identities.')}
+      ${indicator('Institutional Credibility', record.governance_indicators.institutional_credibility, 'Higher indicates stronger alignment between claims, authority, and evidence.')}
+      ${indicator('Decision Timeliness', record.governance_indicators.decision_timeliness, 'Higher indicates more time remained when the bounded decision was committed.')}
     </div>
-    <p><strong>Scenario state:</strong> Public Pressure ${record.indicators.public_pressure}/100. This is context, not a performance score.</p>
+    <p><strong>Scenario state:</strong> Public Pressure ${record.governance_indicators.public_pressure}/100. This is context, not a performance score.</p>
 
     <h3>Action plan</h3>
     <p>${selectedActions.length ? selectedActions.map(esc).join('; ') : 'No actions selected.'}</p>
@@ -667,9 +654,9 @@ function result() {
     <p class="identity-note">This is a fictional learning result, not an operational, legal, attribution, certification, or emergency-response decision.</p>
     <details class="technical-details">
       <summary>Technical decision record</summary>
-      <p><strong>Decision fingerprint</strong> (technical digest): <code>${esc(record.digest)}</code></p>
-      <p>This fingerprint uniquely represents the choices in this committed decision package.</p>
-      <p>The record is local, unsigned, and not independently anchored. It does not independently prove who made the decision or when.</p>
+      <p><strong>Decision fingerprint</strong> (technical digest): <code>${esc(record.decision_digest)}</code></p>
+      <p>This digest detects changes in the canonical local decision package. It is not a digital signature and does not establish identity.</p>
+      <p>The local audit events are unsigned, not identity-authenticated, not independently timestamped, and not externally anchored. They do not prove real-world activity.</p>
     </details>
 
     ${copyFallbackText ? `<div class="fallback-copy"><label for="copy-fallback"><strong>Manual copy fallback</strong></label><textarea id="copy-fallback" rows="4" readonly>${esc(copyFallbackText)}</textarea></div>` : ''}
@@ -683,6 +670,11 @@ function result() {
 
 async function commit(buttonElement) {
   if (committing) return;
+  if (!webCryptoAvailable()) {
+    visibleActionMessage = 'Commit is unavailable because this browser does not provide WebCrypto SHA-256 support.';
+    render();
+    return;
+  }
   committing = true;
   if (buttonElement) buttonElement.disabled = true;
   announce('Committing the confirmed decision package.');
@@ -691,6 +683,7 @@ async function commit(buttonElement) {
     if (!state.human_confirmation || digest !== state.confirmed_digest) {
       state.human_confirmation = false;
       state.confirmed_digest = '';
+      recordEvent('confirmation_invalidated', { reason: 'decision digest mismatch during commitment' });
       save();
       announce('Decision changed after confirmation. Review and confirm again.');
       render();
@@ -703,30 +696,37 @@ async function commit(buttonElement) {
     const diagnostics = markingDiagnostics(scenario(), state.marks);
     const indicators = computeOutcomeIndicators(scenario(), decision);
     indicators.public_pressure = state.public_pressure;
+    const committedAt = new Date().toISOString();
+    recordEvent('decision_committed', { decision_digest: digest, score, performance_label: label });
+    recordEvent('aar_generated', { schema_version: metadata.aar_schema_version });
+    const auditEvents = await hashAuditEvents(state.audit_events, metadata.audit_event_schema_version);
+    const auditValid = await verifyAuditChain(auditEvents);
+    if (!auditValid) throw new Error('The local audit-event chain could not be verified.');
     state.committed = true;
-    state.result = {
-      schema_version: '1.0',
-      product: PRODUCT_NAME,
-      version: APP_VERSION,
-      scenario_id: state.scenario_id,
-      mode: state.mode,
-      committed_at_utc: new Date().toISOString(),
+    state.result = buildAarRecord({
+      metadata,
+      policy,
+      scenario: scenario(),
+      state,
+      decision: decisionInput(),
+      breakdown,
       score,
       label,
-      breakdown,
       diagnostics,
       indicators,
       digest,
-      decision: decisionInput(),
-      limitations: [
-        'Fictional authored model',
-        'Local unsigned record',
-        'Not operational, legal, attribution, certification, or professional validation',
-      ],
-    };
+      auditEvents,
+      auditValid,
+      committedAt,
+    });
     state.screen = 'result';
     save();
     announce(`Decision committed. Score ${score}. ${label}.`);
+    render();
+  } catch (error) {
+    visibleActionMessage = `Commit failed safely: ${error.message}`;
+    pendingFocusId = 'commit-button';
+    announce(visibleActionMessage);
     render();
   } finally {
     committing = false;
@@ -734,7 +734,7 @@ async function commit(buttonElement) {
 }
 
 function summaryText() {
-  return `${PRODUCT_NAME}: ${state.result.score}/100 | ${state.result.label} | ${state.result.digest}`;
+  return `${metadata.product_name}: ${state.result.score}/100 | ${state.result.performance_label} | ${state.result.decision_digest}`;
 }
 
 async function copySummary() {
@@ -761,9 +761,10 @@ function download() {
   let objectUrl = '';
   try {
     if (!state.result) throw new Error('No committed AAR is available.');
+    assertAarRecord(state.result, metadata);
     if (!URL?.createObjectURL) throw new Error('Browser download support is unavailable.');
-    const timestamp = (state.result.committed_at_utc || new Date().toISOString()).replace(/[:.]/g, '-');
-    const digestPrefix = state.result.digest.slice(0, 12);
+    const timestamp = (state.result.committed_at || new Date().toISOString()).replace(/[:.]/g, '-');
+    const digestPrefix = state.result.decision_digest.slice(0, 12);
     const filename = `peace-os-crisis-room-aar-${state.scenario_id}-${timestamp}-${digestPrefix}.json`;
     const blob = new Blob([`${JSON.stringify(state.result, null, 2)}\n`], { type: 'application/json' });
     const anchor = document.createElement('a');
@@ -792,6 +793,7 @@ function startFreshSession() {
   clearSaved();
   savedCandidate = null;
   state = blank();
+  recordEvent('session_started', { application_version: metadata.application_version });
   copyFallbackText = '';
   pendingFocusId = 'screen-heading';
   render();
@@ -835,9 +837,11 @@ function wire() {
       return render();
     }
     if (action === 'confirm-delete') {
+      recordEvent('session_deleted', { session_id: state.session_id });
       clearSaved();
       savedCandidate = null;
       state = blank();
+      recordEvent('session_started', { application_version: metadata.application_version });
       announce('Saved session deleted. Downloaded AAR files were not changed.');
       return render();
     }
@@ -853,6 +857,7 @@ function wire() {
       if (!state.reviewed.includes(id)) {
         state.reviewed.push(id);
         consumeTime('evidence', id);
+        recordEvent('evidence_reviewed', { evidence_id: id });
       }
       state.card_id = id;
       state.screen = 'card';
@@ -874,16 +879,26 @@ function wire() {
   }));
 
   main.querySelectorAll('input[name="mode"]').forEach(input => input.addEventListener('change', event => {
-    setState({ mode: event.target.value }, 'mode changed', event.target.id);
+    const mode = event.target.value;
+    invalidate('mode changed');
+    state.mode = mode;
+    recordEvent('mode_selected', { mode });
+    pendingFocusId = event.target.id;
+    save();
+    render();
   }));
 
   main.querySelectorAll('input[name="scenario"]').forEach(input => input.addEventListener('change', event => {
     const selectedMode = document.querySelector('input[name="mode"]:checked')?.value || state.mode || '';
     state = blank();
+    recordEvent('session_started', { application_version: metadata.application_version });
     state.mode = selectedMode;
     state.scenario_id = event.target.value;
+    state.scenario_version = scenarios[event.target.value].version;
     state.remaining_minutes = scenarios[event.target.value].decision_clock_minutes;
     state.public_pressure = scenarios[event.target.value].starting_meters.public_pressure;
+    recordEvent('mode_selected', { mode: selectedMode });
+    recordEvent('scenario_selected', { scenario_id: state.scenario_id, scenario_version: state.scenario_version });
     pendingFocusId = event.target.id;
     save();
     render();
@@ -893,6 +908,7 @@ function wire() {
     const id = state.card_id;
     state.marks[id] ??= Object.fromEntries(MARK_NAMES.map(key => [key, false]));
     state.marks[id][event.target.dataset.mark] = event.target.checked;
+    recordEvent('judgment_recorded', { dimension: 'evidence_mark', evidence_id: id, mark: event.target.dataset.mark, value: event.target.checked });
     invalidate('evidence marking changed');
     pendingFocusId = event.target.id;
     save();
@@ -902,17 +918,20 @@ function wire() {
   for (const key of ['confidence', 'corroboration', 'authenticity']) {
     main.querySelectorAll(`input[name="${key}"]`).forEach(input => input.addEventListener('change', event => {
       if (key === 'confidence' && !state.confidence) consumeTime('confidence');
+      recordEvent('judgment_recorded', { dimension: key, value: event.target.value });
       setState({ [key]: event.target.value }, `${key} changed`, event.target.id);
     }));
   }
 
   main.querySelectorAll('input[name="release"]').forEach(input => input.addEventListener('change', event => {
     if (!state.release_id) consumeTime('release');
+    recordEvent('release_posture_selected', { release_id: event.target.value });
     setState({ release_id: event.target.value }, 'release posture changed', event.target.id);
   }));
 
   main.querySelectorAll('[data-action-choice]').forEach(input => input.addEventListener('change', event => {
     state.actions[event.target.dataset.actionChoice] = event.target.checked;
+    recordEvent('action_selected', { action_id: event.target.dataset.actionChoice, selected: event.target.checked });
     invalidate('governance action changed');
     pendingFocusId = event.target.id;
     save();
@@ -922,6 +941,7 @@ function wire() {
   $('#human-confirm')?.addEventListener('change', async event => {
     state.human_confirmation = event.target.checked;
     state.confirmed_digest = event.target.checked ? await decisionDigest() : '';
+    recordEvent(event.target.checked ? 'confirmation_created' : 'confirmation_invalidated', event.target.checked ? { decision_digest: state.confirmed_digest } : { reason: 'human confirmation removed' });
     pendingFocusId = 'human-confirm';
     save();
     render();
@@ -930,34 +950,60 @@ function wire() {
 
 async function init() {
   detectStorage();
+  metadata = await fetch('./data/release/metadata.json').then(response => {
+    if (!response.ok) throw new Error('Release metadata could not be loaded.');
+    return response.json();
+  });
+  const releaseStatus = document.getElementById('release-status');
+  if (releaseStatus) releaseStatus.innerHTML = `<strong>${esc(metadata.product_version)}</strong> · ${esc(metadata.release_status)} · Fictional and local-session only`;
+  policy = await fetch('./data/governance/policy.json').then(response => response.json());
   const index = await fetch('./data/scenarios/index.json').then(response => response.json());
-  for (const item of index.scenarios) {
-    scenarios[item.id] = await fetch(`./data/scenarios/${item.file}`).then(response => response.json());
-  }
+  for (const item of index.scenarios) scenarios[item.id] = await fetch(`./data/scenarios/${item.file}`).then(response => response.json());
   rubric = await fetch('./data/scoring/scoring_rubric.json').then(response => response.json());
   language = await fetch('./data/release_language/controlled_language.json').then(response => response.json());
 
   const saved = loadSaved();
-  if (savedStateValid(saved) && (!saved.scenario_id || scenarios[saved.scenario_id])) {
-    savedCandidate = saved;
+  const assessment = saved?.__parse_error__ ? { status: 'invalid', message: visibleActionMessage } : saved ? assessSavedSession(saved, scenarios, metadata, Object.keys(actionLabels)) : null;
+  if (assessment && ['valid', 'migrated'].includes(assessment.status) && await savedResultValid(assessment.state)) {
+    savedCandidate = assessment.state;
+    if (assessment.status === 'migrated') {
+      state = assessment.state;
+      recordEvent('session_migrated', { from: '0.3.0-rc1', to: metadata.application_version });
+      save();
+      visibleActionMessage = assessment.message;
+    }
     state = blank();
+    recordEvent('session_started', { application_version: metadata.application_version });
     state.screen = 'resume';
   } else {
-    if (saved) clearSaved();
     state = blank();
+    recordEvent('session_started', { application_version: metadata.application_version });
+    if (assessment) visibleActionMessage = assessment.message || 'The saved session failed consistency checks. It was not deleted.';
   }
   render();
+  document.documentElement.dataset.appReady = 'true';
   updateDeleteButton();
   if (!storageAvailable) announce('Browser storage is unavailable. The session will continue in memory only.');
-
-  if (new URLSearchParams(location.search).has('selftest')) {
-    document.documentElement.dataset.selftest = Object.keys(scenarios).length === 2 && rubric.credible_gate ? 'pass' : 'fail';
-  }
+  if (new URLSearchParams(location.search).has('selftest')) document.documentElement.dataset.selftest = Object.keys(scenarios).length === 2 && rubric.credible_gate && metadata.application_version === '0.3.0-rc2' ? 'pass' : 'fail';
 }
+
+
+const printDisclosureState = new Map();
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('details').forEach(item => {
+    printDisclosureState.set(item, item.open);
+    item.open = true;
+  });
+});
+window.addEventListener('afterprint', () => {
+  printDisclosureState.forEach((wasOpen, item) => { item.open = wasOpen; });
+  printDisclosureState.clear();
+});
 
 $('#delete-session').addEventListener('click', () => requestDeleteSavedSession(state.screen));
 
 init().catch(error => {
-  main.innerHTML = `<section class="panel"><h2>Unable to load simulation</h2><p class="error">${esc(error.message)}</p></section>`;
+  document.documentElement.dataset.appFailed = 'true';
+  main.innerHTML = `<section class="panel"><h2>Unable to load simulation</h2><p class="error">${esc(error.message)}</p><p>Reload the page in a current browser. If the problem continues, review the <a href="https://github.com/GLOBAL-AI-GOVERNANCE/peace-os-crisis-room">source repository</a>, <a href="https://github.com/GLOBAL-AI-GOVERNANCE/peace-os-crisis-room/blob/main/VERIFICATION.md">verification matrix</a>, or <a href="https://github.com/GLOBAL-AI-GOVERNANCE/peace-os-crisis-room/issues/new/choose">report an issue</a>.</p></section>`;
   console.error(error);
 });

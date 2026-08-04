@@ -11,6 +11,8 @@ class WebAccessibilityContract(unittest.TestCase):
         cls.css = (ROOT / 'web/styles.css').read_text(encoding='utf-8')
         cls.js = (ROOT / 'web/app.js').read_text(encoding='utf-8')
         cls.guard = (ROOT / 'web/frame-guard.js').read_text(encoding='utf-8')
+        cls.startup = (ROOT / 'web/startup-guard.js').read_text(encoding='utf-8')
+        cls.session = (ROOT / 'web/session.js').read_text(encoding='utf-8')
 
     def test_semantic_landmarks_and_live_region(self):
         for fragment in ('<header', '<nav', '<main', '<footer', 'aria-live="polite"', 'Skip to simulation'):
@@ -20,7 +22,7 @@ class WebAccessibilityContract(unittest.TestCase):
         combined = self.html + self.js
         for forbidden in ('google-analytics', 'googletagmanager', 'segment.io', 'mixpanel', 'fetch("http', "fetch('http"):
             self.assertNotIn(forbidden, combined)
-        self.assertIn('No login, telemetry', self.html)
+        self.assertIn('No application account, application telemetry, backend, external AI, live operational feed', self.html)
 
     def test_commit_before_results(self):
         self.assertIn("result,", self.js)
@@ -29,7 +31,7 @@ class WebAccessibilityContract(unittest.TestCase):
 
     def test_no_preselected_decision(self):
         for fragment in ("confidence: ''", "corroboration: ''", "authenticity: ''", "release_id: ''"):
-            self.assertIn(fragment, self.js)
+            self.assertIn(fragment, self.js + self.session)
 
     def test_responsive_and_reduced_motion(self):
         self.assertIn('@media (max-width: 42rem)', self.css)
@@ -55,7 +57,7 @@ class WebAccessibilityContract(unittest.TestCase):
         self.assertNotIn('<pre>${esc(JSON.stringify', self.js)
 
     def test_saved_session_recovery(self):
-        for phrase in ('Resume saved session', 'Start new session', 'Delete saved session', 'savedStateValid'):
+        for phrase in ('Resume saved session', 'Start new session', 'Delete saved session', 'assessSavedSession'):
             self.assertIn(phrase, self.js + self.html)
 
     def test_commit_guard_and_unique_download(self):
@@ -90,6 +92,22 @@ class WebAccessibilityContract(unittest.TestCase):
         self.assertIn('aria-label="Current session"', self.js)
         for control_id in ('download-aar-button', 'copy-summary-button', 'print-aar-button', 'restart-button'):
             self.assertIn(control_id, self.js)
+
+    def test_visible_maturity_transparency_and_failure_guidance(self):
+        self.assertIn('v0.3.0-rc2', self.html)
+        self.assertIn('<noscript>', self.html)
+        self.assertIn('Project transparency', self.html)
+        for fragment in ('VERIFICATION.md', 'PUBLIC_RELEASE_GATE.md', 'security/policy', 'issues/new/choose'):
+            self.assertIn(fragment, self.html + self.startup)
+
+    def test_print_expands_complete_aar(self):
+        self.assertIn("window.addEventListener('beforeprint'", self.js)
+        self.assertIn("window.addEventListener('afterprint'", self.js)
+
+    def test_webcrypto_and_canonical_aar_contract(self):
+        self.assertIn('webCryptoAvailable', self.js)
+        self.assertIn('buildAarRecord', self.js)
+        self.assertIn('assertAarRecord', self.js)
 
 
 if __name__ == '__main__':
