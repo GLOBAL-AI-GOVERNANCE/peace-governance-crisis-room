@@ -50,7 +50,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--output",
-        default=str(ROOT / "dist" / "extended-vv-results-v0.3.0-rc1.json"),
+        default=str(ROOT / "dist" / "extended-vv-results-v0.3.0-rc2.json"),
         help="Path for the JSON evidence record.",
     )
     return parser.parse_args()

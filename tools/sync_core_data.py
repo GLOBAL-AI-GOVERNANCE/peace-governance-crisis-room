@@ -9,6 +9,7 @@ FILES=[
  'scoring/scoring_rubric.json',
  'governance/policy.json',
  'release_language/controlled_language.json',
+ 'release/metadata.json',
 ]
 for rel in FILES:
     source=ROOT/'core'/rel

@@ -1,6 +1,6 @@
 # Automated acceptance validation
 
-The `v0.3.0-rc1` release workflow uses automated acceptance validation to verify the exact public candidate before publication.
+The `v0.3.0-rc2` release workflow uses automated acceptance validation to verify the exact public candidate before publication.
 
 The release controller verifies:
 

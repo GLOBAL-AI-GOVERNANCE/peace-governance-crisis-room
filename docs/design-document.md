@@ -2,7 +2,7 @@
 
 ## Release
 
-`v0.3.0-rc1` is a source release candidate correcting the rc1 learning-validity, decision-flow, publication-identity, and source-UX defects. Runtime behavior remains unverified until Godot executes the project.
+`v0.3.0-rc2` is a source release candidate correcting the rc1 learning-validity, decision-flow, publication-identity, and source-UX defects. Runtime behavior remains unverified until Godot executes the project.
 
 ## Learning design
 

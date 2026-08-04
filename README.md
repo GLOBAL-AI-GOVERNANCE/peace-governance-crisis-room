@@ -4,13 +4,13 @@ A fictional, local-only simulation for practicing evidence review, civilian prot
 
 > Verification before amplification. Human control before release.
 
-**Release status:** `v0.3.0-rc1` Integrated Web Review Candidate
+**Release status:** `v0.3.0-rc2` Public browser review candidate
 
 **Expected exercise time:** 15–25 minutes
 
-**Privacy:** no account, telemetry, live data, backend, or external AI
+**Privacy:** local browser session data with no application account, application telemetry, backend, external AI, or live operational feed
 
-[Launch the web simulation](https://global-ai-governance.github.io/peace-os-crisis-room/) · [Verification status](VERIFICATION.md) · [Release limits](PUBLIC_RELEASE_GATE.md)
+[Launch the web simulation](https://global-ai-governance.github.io/peace-os-crisis-room/) · [Verification status](VERIFICATION.md) · [Release limits](PUBLIC_RELEASE_GATE.md) · [Release lineage](RELEASE_LINEAGE.md)
 
 [![Peace OS: Crisis Room start screen](docs/assets/peace-os-crisis-room-preview.webp)](https://global-ai-governance.github.io/peace-os-crisis-room/)
 

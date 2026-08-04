@@ -1,10 +1,10 @@
 # Public Release Gate
 
-## `v0.3.0-rc1` prerelease scope
+## `v0.3.0-rc2` prerelease scope
 
 The approved public label is:
 
-> **Peace OS: Crisis Room v0.3.0-rc1: Integrated Web Review Candidate**
+> **Peace OS: Crisis Room v0.3.0-rc2: Primer Closure and Contract Hardening**
 
 A prerelease may be published after:
 

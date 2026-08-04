@@ -1,6 +1,6 @@
 # Verification
 
-This is the controlling public verification matrix for `v0.3.0-rc1`.
+This is the controlling public verification matrix for `v0.3.0-rc2`.
 
 | Evidence class | Status before live integration | Meaning |
 |---|---|---|

@@ -57,7 +57,7 @@ class ReleaseIntegrityContractTests(unittest.TestCase):
     def test_active_godot_metadata_uses_peace_os_identity(self) -> None:
         preset = (ROOT / 'game' / 'export_presets.cfg').read_text(encoding='utf-8')
         main = (ROOT / 'game' / 'scripts' / 'Main.gd').read_text(encoding='utf-8')
-        self.assertIn('Peace_OS_Crisis_Room_v0.3.0-rc1.exe', preset)
+        self.assertIn('Peace_OS_Crisis_Room_v0.3.0-rc2.exe', preset)
         self.assertIn('application/copyright="Global AI Governance contributors; licensed under MIT"', preset)
         self.assertIn('Peace OS is the product name.', main)
 

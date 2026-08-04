@@ -44,7 +44,7 @@ class ReleaseOperatorContractTests(unittest.TestCase):
             'deletions-reviewed.txt',
             'overlay-plan.txt',
             'git diff --cached --check',
-            'extended-vv-results-v0.3.0-rc1.json',
+            'extended-vv-results-v0.3.0-rc2.json',
             'scan_publication_surface.py',
             'git-history-secret-scan.txt',
         ):
@@ -136,7 +136,7 @@ class ReleaseOperatorContractTests(unittest.TestCase):
         self.assertIn('complete deployed Pages UAT after merge', self.publish)
 
     def test_generated_vv_output_cannot_enter_staged_source(self) -> None:
-        self.assertIn('--output "$REVIEW_ROOT/extended-vv-results-v0.3.0-rc1.json"', self.publish)
+        self.assertIn('--output "$REVIEW_ROOT/extended-vv-results-v0.3.0-rc2.json"', self.publish)
         self.assertIn("generated dist output is staged", self.publish)
         self.assertIn('staged path is not in the reviewed source allowlist', self.publish)
 

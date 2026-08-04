@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.0-rc2 - Primer Closure and Contract Hardening
+
+- Centralizes public product, policy, scoring, scenario, session, AAR, and audit metadata.
+- Aligns browser After-Action Review output with the versioned public schema.
+- Adds bounded local audit events, strict saved-session validation, and safe migration or rejection behavior.
+- Reconciles scenario vocabulary, top-band action safeguards, and time semantics.
+- Adds visible prerelease status, transparency links, failure guidance, and print-complete AAR output.
+- Adds exact post-deployment browser UAT and immutable release evidence for the accepted merge commit.
+- Keeps stable accessibility, human-learning, Godot, Windows, certification, and operational claims on HOLD.
+
 ## v0.3.0-rc1 - Integrated Web Review Candidate
 
 - Establishes **Peace OS: Crisis Room** as the active product identity and `GLOBAL-AI-GOVERNANCE/peace-os-crisis-room` as the canonical repository.

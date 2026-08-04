@@ -37,7 +37,7 @@ jobs:
         run: |
           python tools/build_release.py --output-dir dist-a --skip-validation
           python tools/build_release.py --output-dir dist-b --skip-validation
-          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-source.zip dist-b/peace-os-crisis-room-v0.3.0-rc1-source.zip
-          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-provenance.json dist-b/peace-os-crisis-room-v0.3.0-rc1-provenance.json
-          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-SBOM.spdx.json dist-b/peace-os-crisis-room-v0.3.0-rc1-SBOM.spdx.json
-          cmp dist-a/peace-os-crisis-room-v0.3.0-rc1-SHA256SUMS.txt dist-b/peace-os-crisis-room-v0.3.0-rc1-SHA256SUMS.txt
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc2-source.zip dist-b/peace-os-crisis-room-v0.3.0-rc2-source.zip
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc2-provenance.json dist-b/peace-os-crisis-room-v0.3.0-rc2-provenance.json
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc2-SBOM.spdx.json dist-b/peace-os-crisis-room-v0.3.0-rc2-SBOM.spdx.json
+          cmp dist-a/peace-os-crisis-room-v0.3.0-rc2-SHA256SUMS.txt dist-b/peace-os-crisis-room-v0.3.0-rc2-SHA256SUMS.txt

@@ -1,6 +1,6 @@
 # Governance Kernel Mapping
 
-This document maps doctrine to the v0.3.0-rc1 simulation implementation.
+This document maps doctrine to the v0.3.0-rc2 simulation implementation.
 
 | Doctrine requirement | Implementation | Evidence boundary |
 |---|---|---|

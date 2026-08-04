@@ -1,4 +1,4 @@
-"""Reference model for Peace OS: Crisis Room v0.3.0-rc1.
+"""Reference model for Peace OS: Crisis Room v0.3.0-rc2.
 
 This model mirrors the data-driven source scoring contract. It does not execute
 Godot and must not be represented as runtime validation.

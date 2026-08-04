@@ -8,7 +8,7 @@ assignees: ""
 
 ## Version
 
-- Version: v0.3.0-rc1
+- Version: v0.3.0-rc2
 - Running from source or Windows build:
 - OS:
 - Godot version, if applicable:

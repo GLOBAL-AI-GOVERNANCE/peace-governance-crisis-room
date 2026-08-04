@@ -23,10 +23,10 @@ forbidden_prefixes = {
 forbidden_exact = {
     'SBOM.spdx.json',
     'docs/audit/internal-candidate-corrective-history.md',
-    'docs/audit/v0.3.0-rc1-final-publication-hardening.md',
-    'docs/audit/v0.3.0-rc1-integrated-vv.md',
-    'docs/validation/local-chromium-uat-v0.3.0-rc1.json',
-    'docs/validation/local-chromium-uat-v0.3.0-rc1.md',
+    'docs/audit/v0.3.0-rc2-final-publication-hardening.md',
+    'docs/audit/v0.3.0-rc2-integrated-vv.md',
+    'docs/validation/local-chromium-uat-v0.3.0-rc2.json',
+    'docs/validation/local-chromium-uat-v0.3.0-rc2.md',
 }
 forbidden_markers = {
     'truth_architecture_dossier_9-11',
