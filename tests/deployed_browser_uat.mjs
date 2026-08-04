@@ -111,7 +111,43 @@ async function launchBrowser(browserPath) {
     'about:blank',
   ];
   if (process.platform !== 'win32' && typeof process.getuid === 'function' && process.getuid() === 0) args.unshift('--no-sandbox');
-  const child = spawn(browserPath, args, { stdio: ['ignore', 'ignore', 'pipe'], windowsHide: true });
+  const detached = process.platform !== 'win32';
+  const child = spawn(browserPath, args, {
+    stdio: ['ignore', 'ignore', 'pipe'],
+    windowsHide: true,
+    detached,
+  });
+  const processGroupId = detached ? child.pid : null;
+  const browserTreeIsRunning = () => {
+    if (detached && processGroupId) {
+      try {
+        process.kill(-processGroupId, 0);
+        return true;
+      } catch (error) {
+        if (error?.code === 'ESRCH') return false;
+        if (error?.code === 'EPERM') return true;
+        throw error;
+      }
+    }
+    return child.exitCode === null;
+  };
+  const signalBrowserTree = signal => {
+    if (detached && processGroupId) {
+      try {
+        process.kill(-processGroupId, signal);
+        return;
+      } catch (error) {
+        if (error?.code === 'ESRCH') return;
+        if (error?.code !== 'EPERM') throw error;
+      }
+    }
+    if (child.exitCode === null) child.kill(signal);
+  };
+  const waitForBrowserTreeExit = async timeoutMs => {
+    const deadline = Date.now() + timeoutMs;
+    while (browserTreeIsRunning() && Date.now() < deadline) await sleep(100);
+    return !browserTreeIsRunning();
+  };
   let stderr = '';
   let debuggerUrl = '';
   child.stderr.setEncoding('utf8');
@@ -126,7 +162,8 @@ async function launchBrowser(browserPath) {
     await sleep(100);
   }
   if (!debuggerUrl) {
-    child.kill('SIGKILL');
+    signalBrowserTree('SIGKILL');
+    await waitForBrowserTreeExit(3000);
     fail(`Timed out waiting for browser DevTools endpoint: ${stderr.slice(-2000)}`);
   }
   let version = basename(browserPath);
@@ -146,13 +183,20 @@ async function launchBrowser(browserPath) {
     profile,
     debuggerUrl,
     async close() {
-      if (child.exitCode === null) child.kill('SIGTERM');
-      await Promise.race([new Promise(resolvePromise => child.once('exit', resolvePromise)), sleep(3000)]);
-      if (child.exitCode === null) {
-        child.kill('SIGKILL');
-        await Promise.race([new Promise(resolvePromise => child.once('exit', resolvePromise)), sleep(3000)]);
+      signalBrowserTree('SIGTERM');
+      if (!(await waitForBrowserTreeExit(3000))) {
+        signalBrowserTree('SIGKILL');
+        if (!(await waitForBrowserTreeExit(3000))) {
+          fail('Browser process group did not exit after bounded SIGTERM and SIGKILL shutdown.');
+        }
       }
-      rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 250 });
+      try {
+        rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 250 });
+      } catch (error) {
+        const code = error && typeof error === 'object' ? error.code : '';
+        if (!['ENOTEMPTY', 'EBUSY', 'EPERM'].includes(code)) throw error;
+        console.warn(`WARN: Browser profile cleanup deferred after verified browser shutdown: ${error.message}`);
+      }
     },
   };
 }

@@ -33,10 +33,21 @@ class Rc2DeploymentContractTests(unittest.TestCase):
         ):
             self.assertIn(marker, self.uat)
 
-    def test_browser_profile_cleanup_retries_transient_races(self):
-        self.assertIn('maxRetries: 10', self.uat)
-        self.assertIn('retryDelay: 250', self.uat)
-
+    def test_browser_profile_cleanup_is_process_group_aware_and_bounded(self):
+        for marker in (
+            "const detached = process.platform !== 'win32';",
+            'const processGroupId = detached ? child.pid : null;',
+            'process.kill(-processGroupId, 0)',
+            'process.kill(-processGroupId, signal)',
+            "signalBrowserTree('SIGTERM')",
+            "signalBrowserTree('SIGKILL')",
+            'await waitForBrowserTreeExit(3000)',
+            'maxRetries: 10',
+            'retryDelay: 250',
+            "['ENOTEMPTY', 'EBUSY', 'EPERM'].includes(code)",
+            'Browser profile cleanup deferred after verified browser shutdown',
+        ):
+            self.assertIn(marker, self.uat)
     def test_deployed_uat_verifier_fails_closed(self):
         commit = 'a' * 40
         record = {
