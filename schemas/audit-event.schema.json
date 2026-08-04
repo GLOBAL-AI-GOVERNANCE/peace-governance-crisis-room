@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://global-ai-governance.github.io/peace-os-crisis-room/schemas/audit-event.schema.json",
+  "title": "Peace OS Local Audit Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "sequence", "event_type", "occurred_at", "data", "previous_hash", "event_hash"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "sequence": {"type": "integer", "minimum": 1},
+    "event_type": {
+      "enum": ["session_started", "session_migrated", "scenario_selected", "mode_selected", "evidence_reviewed", "judgment_recorded", "release_posture_selected", "action_selected", "confirmation_created", "confirmation_invalidated", "decision_committed", "aar_generated", "session_deleted"]
+    },
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "data": {"type": "object"},
+    "previous_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "event_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
